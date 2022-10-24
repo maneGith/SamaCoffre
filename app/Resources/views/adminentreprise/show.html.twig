@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4">
+                              Client
+                        </span>
+                    </h1>
+ <div  class="width-input-field">
+    
+                      
+                    <table class="table table-bodered table-responsive show-thead">
+                        <tbody>
+
+                             <tr>
+                                <th class="col">Entreprise</th>
+                                <td data-label="Entreprise" class="col">{{ adminEntreprise.entreprise.nom }}</td>
+                            </tr>
+                            
+                             <tr>
+                                <th class="col">Adresse</th>
+                                <td data-label="Adresse" class="col">{{ adminEntreprise.entreprise.adresse }}</td>
+                            </tr>
+                            
+                            <tr>
+                                    <th class="col">E-mail</th>
+                                    <td data-label="E-mail">{{ adminEntreprise.user.email }}</td>
+                            </tr>
+
+                            
+                            <tr>
+                                    <th class="col">Téléphone</th>
+                                    <td data-label="Téléphone">{{ adminEntreprise.user.telephone }}</td>
+                            </tr>
+                            
+                              <tr>
+                                    <th class="col">Inscription</th>
+                                    <td data-label="Inscription">  {% if adminEntreprise.entreprise.date %}{{ adminEntreprise.entreprise.date|date('d/m/Y') }}{% endif %}</td>
+                            </tr>
+
+                          
+                            
+                            
+                        </tbody>
+                    </table>
+            
+                    <div style="height: 30px">
+                        <span style="float: right">
+{#                            <a href="{{ path('adminentreprise_edit', { 'id': adminEntreprise.id }) }}" class="btn  btn-ems">Editer</a> #}
+                              <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="float:left;">
+
+                                <a href="{{ path('adminentreprise_index') }}" class="btn btn-ems">Lister</a>
+                                 </li>
+                               <li style="margin-left:5px;float:left;">
+                             {{ form_start(delete_form) }}
+                                     <input type="submit" value="Supprimer"  class="btn  btn-ems">
+                             {{ form_end(delete_form) }}
+                               </li>
+                                 </ul>
+                        </span>
+                    </div>
+                            
+</div>
+    
+        
+                    
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

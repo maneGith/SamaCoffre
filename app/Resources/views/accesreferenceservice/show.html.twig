@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    
+                    
+                    <h1>
+                        <span class="mt-4">Relation Coffre - {{accesReferenceService.service.service.service}}</span>
+                    </h1>
+<div class="width-input-field">
+    
+    
+   
+    <table class="table table-bodered table-responsive show-thead">
+        <tbody>
+            <tr>
+                <th>Coffre de</th>
+                <td data-label="Coffre de">
+                    {{ accesReferenceService.usager.prenom }}
+                    {{ accesReferenceService.usager.nom }}
+                </td>
+            </tr>
+            
+            <tr>
+                <th>Email</th>
+                <td data-label="Email">
+                     <span style="color: red"> 
+                        {{ accesReferenceService.usager.email }}
+                     </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <th class="col">{{ accesReferenceService.service.service.reference }}</th>
+                <td data-label="Document" class="col">
+                    <span style="color: red"> 
+                        {{ accesReferenceService.reference }}
+                    </span>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>Autorisateur</th>
+                <td data-label="Autorisateur">
+                      <span>
+                {%if accesReferenceService.guichet!=null %}
+                    {{ accesReferenceService.guichet.user.nom }}/
+                  {{ accesReferenceService.guichet.agence.nom }}
+                {%else%}
+                   Entreprise
+                {%endif%}</span>
+                    
+                   
+                </td>
+            </tr>
+                        
+        </tbody>
+    </table>
+            
+    <div style="height: 30px">
+        <span style="float: right">
+          
+{#            {% if(is_granted('ROLE_GUICHET')) %}#}
+                <a href="{{ path('accesreferenceservice_index', { 'id': accesReferenceService.service.id }) }}" class="btn btn-ems" style="width: 75px">Coffres</a>
+            {#{% else %}
+                <a href="{{ path('accesreferenceservice_refentreprise', { 'id': accesReferenceService.service.id }) }}" class="btn btn-ems">Autorisations</a>
+            {% endif %}    #}     
+            
+            {% if(is_granted('ROLE_ENTREPRISE')) %}
+               
+                    <a  id="deleteAuto" rel="{{accesReferenceService.service.id}}" href="#" url="{{ path('accesreferenceservice_delete', { 'id': accesReferenceService.id }) }}" class="btn btn-ems">Supprimer</a>
+               
+            {% endif %}  
+             
+        </span>
+    </div>
+        
+        
+        
+        
+ </div> 
+    
+        
+                    
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

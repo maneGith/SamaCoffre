@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tarif creation</h1>
+
+    {{ form_start(form) }}
+    
+     <div class="form-group">
+                                <b>Dépôt Coffre</b>
+                                {{ form_widget(form.service,{'attr':{'class':'form-control servicevendu'}}) }}
+                                {{ form_errors(form.service) }}
+                            </div>
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('tarif_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,50 @@
+<div  id="sidebar-wrapper-connexion" style="text-align: center;">
+    
+    <div class="contenant" style="border-right: 2px #265ead solid;padding-left: 5px;padding-right: 5px;font-size: 14px;line-height: 1.4286;color: #5f6368;">
+           <span style="float: left;font-weight: bold">Distribution</span>
+        <img src="{{ asset('img/courrier-entreprise.png') }}" alt="Girl in a jacket" width="70px" height="70px" class="img"/>
+        <div class="texte_centrer" style="line-height: 16px">
+              <span style="font-weight: bold">Electroniques d'Entreprise</span><br/>
+              <a href="#" class="myBtn btn btn-ems infoCoffre">
+                  C'est Ici !
+                   <i class="fa fa-angle-right fa-lg"></i>
+              </a>
+        </div>
+         <span style="float: right;font-weight: bold">Documents</span>
+    </div>
+      <div style="height: 596px;text-align: center;border-right: 2px #265ead solid;">
+          <div style="text-align: right;font-style: italic;padding: 5px;font-size: 30px;"> 
+               <b>Déjà, {{nentreprises}} Entreprises Profitent de cette Solution</b>
+           </div>
+          
+      </div>
+      <div style="height: 50px;text-align: center;background: #FFF;border-right: 2px #265ead solid;">
+        <div class="container">
+            <div class="row">
+              <div class="col-sm" style="text-align:left">
+                  <span style="font-weight: 100px">
+                       <a href="{{path('tarif_client')}}" style="text-decoration: none;color: #0078b2;;">Nos tarifs</a>
+                  </span>
+              </div>
+              <div class="col-sm" style="text-align:center">
+                  <span style="font-weight: 100px;color: #0078b2;">
+                     samacoffre@samacoffre.sn
+                 </span>
+              </div>
+              <div class="col-sm" style="text-align:right">
+                      <span style="font-weight: 100px;color: #0078b2;">
+                        Utilisateurs
+                      </span>
+              </div>
+            </div>
+             <div class="row">
+                    <div class="col-sm" style="text-align:right">
+                        {{nbusers}}
+                    </div>
+                
+             </div>
+        </div> 
+      </div>
+      
+</div> 
+

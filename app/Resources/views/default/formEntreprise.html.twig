@@ -1,0 +1,121 @@
+<br/><div style="text-align: center">
+            <span style="color: #265ead">
+                <b>INSCRIPTION ENTREPRISE</b></span>
+</div>
+
+<div id="loadinginfo" style="display: none;text-align: right">
+    <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+    <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+    <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+</div>
+
+<form class="form_entreprise">
+    <br/>
+    <div class="form-group">
+
+       <span style="float: right;color: red"> <b>Essai Gratuit de 30 jours!</b></span>
+        <input type="text" name="nom" id="appbundle_etr_nom" class="form-control ltc-nom nom" placeholder="Nom ou Raison sociale" required autofocus/>
+        <div id="errornomEtr" style="display: none">
+            Le nom de l'entrepreise est obligatoire
+        </div>
+        <div class="errorEntreprise" style="display: none">
+            Ce nom d'Entrepreise est déjà utilisé.
+        </div>
+    </div>
+
+    <div class="form-group">
+          <input type="text" name="adresse" id="adresse" class="form-control ltc-nom" placeholder="Adresse" required autofocus/>
+         <div id="erroradresse" style="display: none;text-align: left">
+            L'adresse de l'entrepreise est obligatoire
+        </div>
+    </div>
+
+    <div class="form-group" style="background-color:  #fff;text-align: left">
+
+        <div style="line-height: 15px;padding: 0;text-align: justify;font-size: 11px;text-align: center">
+            <span style="font-size: 14px;font-weight: bold">
+               Catégorie
+            </span>
+        </div>
+        <div class="radio">
+            <input  name="categorie"  id="Banque" required="required" value="Banque" type="radio"/>
+            <label class="required" style="font-size: 1rem;color: #495057;" for="Banque">
+                Banque   
+            </label>
+            <span style="float: right">
+                 <input  name="categorie" id="Entreprise" required="required" value="Entreprise" type="radio"/>
+            <label class="required" style="font-size: 1rem;color: #495057;" for="Entreprise">
+                Entreprise
+            </label>
+            </span>
+
+
+
+           {# <input  name="categorie" id="Autre" required="required" value="Autre" type="radio"/>
+            <label class="required" style="font-size: 1rem;color: #495057;" for="Autre">
+                Autre
+            </label>#}
+         </div>
+    </div>
+
+<fieldset>
+    <legend align="center">L'administrateur du compte</legend> 
+    <div class="form-group">
+        <input type="email" name="email" id="appbundle_etr_email" class="form-control email-input" placeholder="Email" required autofocus/>
+        <div id="erroremailEtr" style="display: none;text-align: left">
+                Cette adresse e-mail est déjà utilisée.
+        </div>
+        <div id="erroremailValidationEtr" style="display: none;text-align: left">
+               Cette adresse e-mail est invalide.
+        </div>
+        <div id="erroremailExistEtr" style="display: none;text-align: left">
+               Cette adresse e-mail ne repond pas.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="telephone" id="appbundle_etr_telephone" class="form-control" placeholder="Téléphone" required autofocus/>
+        <div id="errorphoneEtr" style="display: none;text-align: left">                        
+                Le numéro téléphone doit contenir au moins <b>cinq chiffres</b>.
+        </div>
+     </div> 
+
+    <div class="form-group">
+            <input type="password" name="firstPWDETR" id="firstPWDETR" size="20" class="form-control crf-pwd" placeholder="Mot de passe" required autofocus/>
+            <div id="errorfirstPWDETR" style="display: none;text-align: left">
+                 Le mot de passe doit contenir au moins <b>six caractères</b> dont au moins <b>un chiffre</b>
+                    et <b>une lettre majuscule</b>.
+            </div>
+
+    </div>
+    <div class="form-group">
+            <input type="password" name="secondPWDETR" id="secondPWDETR" size="20" class="form-control crf-pwd" placeholder="Confirmation" disabled="true"/>
+            <div id="errorsecondPWDETR" style="display: none;text-align: left">
+                   Ce Mot de passe doit être identique au premier.
+            </div>
+            <div style="margin-top:7px;text-align: left">
+                 <input type="checkbox"  id="affichePWDETR"/>
+                 <span style="font-size: 14px;">Afficher les mots de passe</span>
+            </div>
+    </div>
+</fieldset> 
+
+<div style="line-height: 15px;padding: 0;text-align: justify;margin-bottom: 15px;color: #777;font-size: 11px;">
+   {# <input type="checkbox" required autofocus />#}
+    <span style="font-size: 14px;">
+       En Inscrivant votre Entreprise, vous acceptez nos
+        <a href="{{path('condition_utilisation')}}" style="color: #265ead;text-decoration: none">
+        Conditions Générales</a>.
+    </span>
+</div>
+
+
+
+    <div style="height: 30px">
+        <span style="float: right">
+            <a href=""  class="btn btn-ems">Annuler</a>
+            <input type="submit" value="Inscrire" class="btn  btn-ems submit-button" />
+        </span>
+    </div>
+
+</form>

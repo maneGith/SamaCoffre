@@ -1,0 +1,47 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+<div id="cgDiv">
+    <div id="container">
+            <div style="background: #fff;padding: 5px">
+
+                        <div id="loadingsearch" style="text-align: right;display: none">
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                        </div>
+            {#fff
+                {{nb}}#}<h4 style="color:#265ead">Rappel de Mot de Passe</h4>
+                        <form action="{{path('user_chercher')}}" method="post" id="form_pwdrappel">
+                                <div class="form-group">    
+                                    `<input type="email" id="chercher_email" name="email"  class="form-control" placeholder="Votre adresse e-mail" required autofocus>
+                                </div>
+
+
+                                <div class="border border-success form-group" style="display:none;border-radius: 5px;" id="succesdivrappelpwd">
+                                    Votre mot de passe vous est rappelé par email. Merci !
+                                </div>
+
+                               {# <div class="border border-success form-group" style="display:none" id="succesdivrappelpwd">
+                                    Fonctionnalité non prête, Merci !
+                                </div>#}
+
+                                <div class="form-group alert-danger" style="border-radius:5px;display:none" id="faildivrappelpwd">
+                                   Aucun compte n'est associé á cet e-mail. Merci !
+                                </div>
+
+
+                            <div style="height: 30px;text-align: left" class="form-group">
+                                        <span style="float:right">
+                                            <a  href="{{path('login')}}" class="btnwhite btn btn-ems">Annuler</a>
+                                            <input type="submit" value="Rappeler" class="btnwhite btn  btn-ems" />
+                                        </span>
+                            </div>
+                        </form>
+
+            </div> 
+    </div> 
+</div> 
+{% endblock %}

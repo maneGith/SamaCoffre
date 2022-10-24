@@ -1,0 +1,118 @@
+
+      <br/><div style="text-align: center">
+          <span style="color: #265ead">
+              <b>CREATION COFFRE</b></span>
+      </div>
+    <div id="loadingmessage" style="display:none;text-align: right">
+         <img src="{{ asset('img/ajax-loader.gif') }}" />
+          <img src="{{ asset('img/ajax-loader.gif') }}" />
+       <img src="{{ asset('img/ajax-loader.gif') }}" />
+    </div>
+{#    {{ form_start(form, { 'action': path('user_new') , 'attr' : {'id':'form_user'} } ) }}#}
+    
+<form method="post" class="form_coffre">
+        <div style="text-align: left">
+            <span style="font-size: 13px;font-weight: bold">Je suis Personne</span>
+        </div>
+       
+        <div class="radio" style="background-color:  #fff">
+            <span style="float: left">
+            <label class="required" style="font-size: 1rem;color: #495057;">
+                <input id="civilite-categ-pa" name="civilite-categ" required="required" value="Particulier" type="radio" checked/>
+                Physique
+            </label>
+                </span>
+<span style="float: right">
+            <label class="required" style="font-size: 1rem;color: #495057;">
+                <input id="civilite-categ-et" name="civilite-categ" required="required" value="Entreprise" type="radio"/>
+                Morale
+            </label></span>
+
+           {# <label class="required" style="font-size: 1rem;color: #495057;">
+                <input id="civilite-categ-pl" name="civilite-categ" required="required" value="P. libérale" type="radio"/>
+                P. libérale
+            </label>#}
+        </div>
+ <div style="clear:both"> </div>
+        <div class="form-group" style="display: none">
+            <input type="text" id="appbundle_utilisateur_civilite" name="civilite"  class="form-control" value="Mr(Mme)" required autofocus>
+        </div>
+
+        <div style="text-align: left;">
+          <span style="font-size: 13px;font-weight: bold">Mes Coordonnées</span>
+        </div>
+        <div class="form-group person-donnee">
+            <input type="text" name="prenom" id="appbundle_utilisateur_prenom"  class="form-control ltc-nom" placeholder="Prénom" required autofocus/>
+            <div id="errorprenom" style="display: none;text-align: left">                        
+                    Le prénom est obligatoire.
+            </div>
+        </div>
+
+        <div class="form-group">
+             <input type="text" name="nom" id="appbundle_utilisateur_nom"  class="form-control ltc-nom" placeholder="Nom de famille" required autofocus/>
+            <div id="errornom" style="display: none;text-align: left">                        
+                    Le nom est obligatoire.
+            </div>
+        </div>
+
+        <div class="form-group">
+           <input type="email" id="appbundle_user_email" name="email"  class="form-control" placeholder="Adresse e-mail" required autofocus>
+            <div id="erroremail" style="display: none;text-align: left">
+                    Cette adresse e-mail est déjà utilisée.
+            </div>
+            <div id="erroremailValidation" style="display: none;text-align: left">
+                   Cette adresse e-mail est invalide.
+            </div>
+           <div id="erroremailExist" style="display: none;text-align: left">
+                   Cette adresse e-mail ne repond pas.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" name="telephone" id="appbundle_utilisateur_telephone" class="form-control" placeholder="Téléphone" required autofocus/>
+            <div id="errorphone" style="display: none;text-align: left">                        
+                    Le numéro téléphone doit contenir au moins <b>cinq chiffres</b>.
+            </div>
+        </div> 
+    
+        <div style="text-align: left">
+          <span style="font-size: 13px;font-weight: bold">Mot de passe</span>
+        </div>
+        <div class="form-group">
+                <input type="password" name="firstPWD" id="firstPWD" size="20" class="form-control crf-pwd" placeholder="Mot de passe"/>
+                <div id="errorfirstPWD" style="display: none;text-align: left">
+                     Le mot de passe doit contenir au moins <b>six caractères</b> dont au moins <b>un chiffre</b>
+                        et <b>une lettre majuscule</b>.
+                </div>
+
+        </div>
+        <div class="form-group">
+                <input type="password" name="secondPWD" id="secondPWD" size="20" class="form-control crf-pwd" placeholder="Confirmation" disabled="true"/>
+                <div id="errorsecondPWD" style="display: none;text-align: left">
+                       Ce Mot de passe doit être identique au premier.
+                </div>
+                <div style="margin-top:7px;text-align: left">
+                     <input type="checkbox"  id="affichePWDCoffre"/>
+                     <span style="font-size: 14px;">Afficher les mots de passe</span>
+                </div>
+        </div>
+
+        <div style="line-height: 15px;padding: 0;text-align: justify;margin-bottom: 15px;color: #777;font-size: 11px;">
+            {# <input type="checkbox" required autofocus />#}
+             <span style="font-size: 14px;">
+                En créant votre Coffre, vous acceptez nos
+                 <a href="{{path('condition_utilisation')}}" style="color: #265ead;text-decoration: none">
+                 Conditions Générales</a>.
+             </span>
+        </div>
+
+
+        <div style="height: 40px">
+            <span style="float: right">
+                <a href=""  class="btn btn-ems">Annuler</a>
+                <input type="submit" value="Créer" class="btn  btn-ems submit-button" />
+            </span>
+        </div>
+{#    {{ form_end(form) }}#}
+</form>
+

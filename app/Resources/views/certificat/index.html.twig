@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    <h1>
+                        <span class="mt-4"> 
+                        Factures Dépôts Dans Coffres
+                        </span>
+                        
+                               
+                        <span style="float: right;margin-right: 18px;font-weight: bold"> 
+                             {{annee}}
+                        </span>
+                    </h1>
+                       
+                    <div style="clear: both"></div>
+                    <div style="padding-right: 12px;margin-top: 20px">
+                        <span style="float: right" class="creation-mobile">
+                            <a href="{{ path('adminentreprise_index') }}" class="btn btn-ems" style="width: 95px">Clients</a>
+                              
+                        </span>
+                    </div>
+                    
+                   {# <div style="padding-right: 12px;margin-top: 50px">
+                        
+                           <span style="float: right;font-weight: bold">
+                               
+                               <span style="color:red;font-weight: bold">Tous les Clients</span>
+                              
+                           </span><br/> 
+                    </div>#}
+                                
+                    
+                    <table class="table-responsive table table-hover results table-fixed" >
+                        <thead>
+                            <tr>
+                                <th class="col">Période</th>
+                                <th class="col" style="text-align: right">
+                                        <div style="width: 290px;float: right;">
+                                            <a href="{{ path('adminentreprise_index') }}" class="btn btn-ems" style="width: 95px">Clients</a>
+                                        </div>
+                                </th>
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="2"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificat in certificats %}
+                                <tr>
+                                    <td data-label="Période">
+{#                                     {{ certificat.periode }}#}
+                                     
+                                     {% if(certificat.periode |striptags|slice(5)|raw==01) %}  
+                                                Janvier 
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==02) %}  
+                                                Février 
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==03) %}  
+                                                Mars  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==04) %}  
+                                                Avril  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==05) %}  
+                                                Mai  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==06) %}  
+                                                Juin  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==07) %}  
+                                                Juillet  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==08) %}  
+                                                Août  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==09) %}  
+                                                Septembre  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==10) %}  
+                                                Octobre 
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==11) %}  
+                                                Novembre  
+                                            {% elseif (certificat.periode |striptags|slice(5)|raw==12) %}  
+                                                Décembre  
+                                    {% endif %}
+                                    </td> 
+                                    <td  class="action" style="text-align: right">                                        
+                                        <a href="{{ path('certificat_certificat',{'periode':certificat.periode}) }}" class="btn btn-ems r-ems" style="width: 95px">Factures</a>
+                                    </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+       
+                                    
+                </div>       
+            </div>             
+        </div>               
+     </div>
+
+
+
+{% endblock %}

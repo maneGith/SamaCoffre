@@ -1,0 +1,301 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4"> 
+                            Dépôts {{EntrepriseService.service.service}}
+                        </span>
+                        <span style="float: right;margin-right: 18px;font-weight: bold"> 
+                             {{anneeSearch}}
+                        </span>
+                    </h1>
+                    
+                       {% set docs = EntrepriseService.service.service|split(' ') %}                 
+                                             
+                                       
+                    <div style="padding-right: 17px;margin-bottom: 30px">
+                          
+                        <span style="float: right">
+                             {% if(anneeSearch==anneeEncours) %} 
+                                 {% if(isDepotanneePrecedt) %}
+                                  {% set anneePrec = anneeEncours - 1 %}
+                                    <a  href="{{path('courrierentreprise_index',{ 'id': EntrepriseService.id, 'annee':anneePrec})}}" class="btn btn-ems r-ems" style="width: 66px">{{anneePrec}}</a>
+                                 {% endif %}
+                            {% else %}
+                                  {% set anneeSuiv = anneeSearch + 1 %}
+                                  <a  href="{{path('courrierentreprise_index',{ 'id': EntrepriseService.id, 'annee':anneeSuiv})}}" class="btn btn-ems r-ems" style="width: 66px">{{anneeSuiv}}</a>
+                             {% endif %}
+                        </span>
+                    </div>
+                        
+                        
+                    <div>
+                        <span class="creation-mobile" style="float: right"> 
+                            {% if(is_granted('ROLE_ENTREPRISE')) %}                 
+                                <a href="{{path('entrepriseservice_entreprise') }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>            
+                            {% else %}                   
+                                <a href="{{ path('entrepriseservice_index', { 'id': EntrepriseService.entreprise.id }) }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>             
+                            {% endif %}
+                        </span> 
+                        <br/>
+                         
+                    </div>
+                    <div id="dropzonePDF" style="display: none">  
+                        <div style="padding: 5px;height: 30px">
+                          Déposer pour le <span style="color: red">{{dateDepot}}</span>
+
+                            <span style="float: right">
+                                <button type="button" class="btn btn-ems" id="submit-all"  style="width: 95px">Envoyer</button>
+                                <a id="cleardropzonePDF" href="#" class="btn btn-ems" style="width: 95px">Supprimer</a>
+                            </span>
+                            <span id="numberFilesUpload" style="float: right;margin-right: 10px">
+                                0 fichiers
+                            </span>
+                        </div>
+                        <div style="padding-top: 7px;">
+                            <form  class="dropzone" id="dropzoneFrom">
+                                {% if EntrepriseService.service.service=='Documents Salarié' %}
+                                <div style="text-align: center" id="TypeCourrierPersonnel">
+                                    <b>Choix Type de document</b><br/>
+                                    <div class="radio">
+                                        <label class="required">
+                                            <input  name="naturedoc" required="required" value="Bulletins de Paie" type="radio"  class="form-control"/>
+                                            Bulletins de Paie
+                                        </label>&nbsp;&nbsp;&nbsp;
+                                        <label class="required">
+                                             <input  name="naturedoc" required="required" value="Décisions" type="radio" class="form-control" />
+                                             Décisions
+                                        </label>
+                                    </div>
+                                </div>
+                                {% else %}
+                                    <div style="text-align: center;display: none">
+                                        <div class="radio">
+                                            <label class="required">
+                                                <input  name="naturedoc" required="required" value="Bulletins de Paie" type="radio"  checked/>
+                                                Bulletins de Paie
+                                            </label>
+                                            <label class="required">
+                                                 <input  name="naturedoc" required="required" value="Décisions" type="radio" />
+                                                 Décisions
+                                            </label>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="dz-message" data-dz-message>
+                                    <span>Nommez les {{EntrepriseService.service.service}} par les  <b>{{EntrepriseService.service.reference}}</b>!</span><br/>
+                                    <span>Cliquez ici pour les déposer!</span>
+                                </div>
+                                
+                                
+                                
+                                <input type="hidden" name="service" value="{{EntrepriseService.id}}"  />
+{#                                <input type="text" name="droitinout" value="{{EntrepriseService.droitinout}}"  />#}
+                            </form>
+                        </div>
+                    </div>
+                            
+                   
+                    <div style="padding-right: 5px;margin-top: 30px;">
+                            {#<span style="font-weight: bold;float: left">
+                                        Année Dépôt:
+                                        <span style="color:red;">
+                                         {{anneeSearch}}
+                                        </span>
+
+                            </span>#}
+                           {% if(is_granted('ROLE_ADMIN')) %}
+                               <span style="font-weight: bold;float: right">
+                                    Client :
+                                    <span style="color:red;">
+                                        {{ EntrepriseService.entreprise.nom|upper }}
+                                    </span>
+                               
+                               </span>
+                         { {% endif %}                         
+                    </div>
+                        
+{#                       {{dump(isDepotanneePrecedt)}}#}
+                    <table class="table-responsive table table-hover results table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="col">Mois de
+                                </th>
+                                <th class="col">Nombre de {{ docs[0] }}</th>
+                                <th class="col">Volume</th>
+                                {#<th class="col">Date</th>#}
+                                <th class="col">
+                                    <div style="width: 300px">
+                                        <span style="float: right">
+                                             {% if(isDepotanneePrecedt) %} 
+                                                {% if(anneeSearch==anneeEncours) %}
+                                                    
+                                                    {#{% if EntrepriseService.etat=='Autorisé'%}#}
+                                                        {% if(is_granted('ROLE_ADMIN')) %}
+                                                            {% if EntrepriseService.droitinout=='Prestataire'%}
+                                                                <a id="opendropzonePDF" href="#" class="btn btn-ems r-ems" style="width: 105px">Déposer</a>
+                                                            {% else %}
+                                                                    <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">Déposer</a>
+                                                            {% endif %}
+                                                        {% else %}
+                                                             {% if EntrepriseService.droitinout=='Client'%}
+                                                                <a id="opendropzonePDF" href="#" class="btn btn-ems r-ems" style="width: 105px">Déposer</a>
+                                                             {% endif %}
+                                                        {% endif %}
+                                                    {#{% else %}
+                                                        <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">Déposer</a>
+                                                    {% endif %} #}
+                                                    
+                                                {% endif %}
+                                             {% else %}
+                                                
+                                                        {% if(is_granted('ROLE_ADMIN')) %}
+                                                            {% if EntrepriseService.droitinout=='Prestataire'%}
+                                                                <a id="opendropzonePDF" href="#" class="btn btn-ems r-ems" style="width: 105px">Déposer</a>
+                                                            {#{% else %}
+                                                                <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">Déposer</a>#}
+                                                            {% endif %}
+                                                        {% else %}
+                                                             {% if EntrepriseService.droitinout=='Client'%}
+                                                                <a id="opendropzonePDF" href="#" class="btn btn-ems r-ems" style="width: 105px">Déposer</a>
+                                                             {% endif %}
+                                                        {% endif %}
+                                                        
+                                               
+{#                                                        <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">Déposer</a>#}
+                                               
+                                             {% endif %}
+                                             
+                                             {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                                 <a href="{{path('entrepriseservice_entreprise') }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>
+                                             {% else %}
+                                                 <a href="{{ path('entrepriseservice_index', { 'id': EntrepriseService.entreprise.id }) }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>
+                                             {% endif %}
+                                             
+                                        </span>
+                                    </div>
+                                </th>
+                            </tr>               
+                            <tr class="warning no-result">
+                              <td colspan="3"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>  
+                            {% for courrierEntreprise in courrierEntreprises %}
+                                <tr>
+                                    <td data-label="Mois de">
+                                              
+                                {% if(courrierEntreprise.periode|striptags|slice(5)|raw==01) %}  
+                                    Janvier 
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==02) %}  
+                                    Février 
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==03) %}  
+                                    Mars  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==04) %}  
+                                    Avril  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==05) %}  
+                                    Mai  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==06) %}  
+                                    Juin  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==07) %}  
+                                    Juillet  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==08) %}  
+                                    Août  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==09) %}  
+                                    Septembre  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==10) %}  
+                                    Octobre 
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==11) %}  
+                                    Novembre  
+                                {% elseif (courrierEntreprise.periode|striptags|slice(5)|raw==12) %}  
+                                    Décembre  
+                                {% endif %}
+                                
+                                
+{#                                {{ courrierEntreprise.periode|striptags|slice(0,4)|raw }}#}
+                                                
+                                                
+                                                
+                                    </td> 
+                                    
+                                    <td data-label="Nombre de  {{ docs[0] }}">
+                                               {{ courrierEntreprise.nombre }}
+                                    </td>
+                                    
+                                     <td data-label="Volume)">
+                                               {{ courrierEntreprise.plis }}
+                                    </td> 
+
+                                    <td class="action">
+                                        <span style="float: right">
+                                           
+                                             {% if(is_granted('ROLE_ADMIN')) %}
+                                                    {% if EntrepriseService.droitinout=='Prestataire'%}
+                                                        <a  href="{{path('courrierentreprise_documents',{ 'periode': courrierEntreprise.periode, 'service':EntrepriseService.id})}}" class="btn btn-ems r-ems" style="width: 105px">
+                                                            
+                                                           Situation
+                                                        </a> 
+                                                        <a href="#" url="{{path('courrierentreprise_delete',{ 'periode': courrierEntreprise.periode, 'service':EntrepriseService.id})}}" class="btn btn-ems r-ems supcourriers" style="width: 105px">Supprimer</a>
+                                                    {% endif %}  
+                                             {% else %}
+                                                    {% if EntrepriseService.droitinout=='Client'%}
+                                                        <a  href="{{path('courrierentreprise_documents',{ 'periode': courrierEntreprise.periode, 'service':EntrepriseService.id})}}" class="btn btn-ems r-ems" style="width: 105px">
+                                                           Situation
+                                                        </a> 
+                                                        <a href="#" url="{{path('courrierentreprise_delete',{ 'periode': courrierEntreprise.periode, 'service':EntrepriseService.id})}}" class="btn btn-ems r-ems supcourriers" style="width: 105px">Supprimer</a>
+                                                    {% else %}
+                                                        <a  href="{{path('courrierentreprise_documents',{ 'periode': courrierEntreprise.periode, 'service':EntrepriseService.id})}}" class="btn btn-ems r-ems" style="width: 105px">
+                                                           
+                                                        Situation
+                                                        </a> 
+                                                        
+                                                    {% endif %}  
+                                             {% endif %}  
+                                                
+                                            </span>
+                                        <br/>
+                                    </td> 
+                                </tr>
+                            {% endfor %} 
+                        </tbody>
+                    </table>
+                        
+                    {#  Confirmation    #}
+                    <div id="myModal" class="modal">
+                        <div class="modal-content" style="max-width: 21.7rem">
+                            <div><span class="close" id="close">
+                              &times;</span>
+                            </div>
+                            <div style="text-align: center">
+                                <h1 class="mt-4"><span style="color: red">Confirmation</span></h1>
+                            </div>
+                            <div style="text-align: center">
+                                Suppression <span style="font-weight: bold">{{EntrepriseService.service.service}} </span> Mois de dépôt :
+                                <span style="font-weight: bold" id="modalInfoSupp"></span>&nbsp;
+                                <span style="font-weight: bold">{{anneeSearch}}</span>
+                            </div>
+                             <div style="text-align: center;margin-top: 10px">
+                                 <form id="modalFormSupp" action="">                             
+                                    <input type="submit" value="Confirmer" class="btn  btn-ems" style="width: 105px"/>
+                                    <a href=""class="btn btn-ems" style="width: 105px">Annuler</a>
+                                 </form>
+                             </div>
+                        </div>    
+                    </div>                     
+                </div>
+                
+            </div>
+        </div>
+     </div>
+{% endblock %}

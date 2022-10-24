@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4">
+                           Services Client
+                        </span>
+                         <span style="color:red;font-weight: bold">{{ entreprise.nom|upper }}</span>
+                    </h1>
+                    
+                   
+                            <span style="float: right">
+                               <ul style="padding:0;margin:0;list-style-type:none;">
+                                       <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                          <a href="{{ path('adminentreprise_index') }}" class="btn btn-ems" style="width: 95px">Entreprises</a>
+                                      </li>
+                              </ul>
+                           </span>
+                                      
+                                      
+                                      
+                                      <table class="table-responsive table table-hover results table-layout: fixed; xed" >
+                        <thead>
+                            <tr> 
+                                <th class="col" >
+                                  Dépôt Sur Coffre
+                                </th>
+                                
+                                <th class="col" style="text-align: center">
+                                  Prix&nbsp;Unitaire (FCFA)
+                                </th>
+                                
+                                
+                                <th class="col" style="text-align: center">
+                                    <div style="text-align: center">
+                                          Droit Dépot/Supp
+                                    </div>
+                                </th>
+                                
+                                 <th class="col" style="text-align: center">
+                                    <div style="text-align: center">
+                                        Droit Guichet
+                                    </div>
+                                </th>
+                                
+                                
+                            
+                            
+
+                           
+                            <th class="col" >
+                                <a href="{{ path('adminentreprise_index') }}" class="btn btn-ems" style="width: 95px">Clients</a>
+                            </th>
+                             
+                              
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="6"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                    
+                                     {% for entrepriseService in entrepriseServices %}
+                                       <tr>
+                                    
+                                   
+                                 
+                                    
+                                    <td data-label="Mise en ligne">
+                                           
+                                           {{ entrepriseService.service.service }}
+                                           
+                                    </td> 
+                                    
+                                     
+                                    
+                                    <td class="col"  data-label="Prix&nbsp;Unitaire">
+                                          <div style="text-align: center">
+                                                {% set prix = 0 %}
+
+                                                {% if entrepriseService.droitinout=='Prestataire' and entrepriseService.stockage=='1 an'%}
+                                                    {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.couttraitement + entrepriseService.service.coutstockage %}
+                                                {% elseif entrepriseService.droitinout=='Prestataire' %}
+                                                    {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.couttraitement %}
+                                                {% elseif entrepriseService.stockage=='1 an' %}
+                                                    {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.coutstockage%}
+                                                {% else %}
+                                                    {% set prix = entrepriseService.service.prixunitaire %}
+                                                {%endif%}
+
+
+
+        {#                                      {{ entrepriseService.service.prixunitaire }}#}
+
+
+                                                {%if prix|striptags|slice(prix|length-3)|raw=='.00'%}
+                                                     {{ prix|striptags|slice(0, prix|length-3)|raw }}
+                                                {%else%}
+                                                     {{ prix }}
+                                                {%endif%}
+                                          </div>
+                                    </td>
+                                    
+                                    
+                                    
+                                    <td data-label="Droit Dépot/Supp">
+                                        <div style="text-align: center">
+                                          {%if entrepriseService.droitinout=='Prestataire'%}
+                                            <span style="color:red">
+                                                 {{ entrepriseService.droitinout }}
+                                            </span>
+                                            
+                                        {%else%}
+                                             {{ entrepriseService.droitinout }}
+                                        {%endif%}
+                                        
+                                        </div>
+                                    </td> 
+                                    
+                                    <td data-label=" Droit GUICHET">
+                                         <div style="text-align: center">
+                                            {{ entrepriseService.droitguichet }}
+                                           
+                                          </div>
+                                    </td> 
+                                    
+                                    
+                                   
+                                    <td  class="action">
+                                            <a href="{{path('courrierentreprise_index',{'id':entrepriseService.id})}}" class="btn btn-ems" style="width: 95px">Dépôts</a>
+                                    </td>
+                                   
+                                  
+                                 </tr>
+                                         
+                                     {% endfor %}
+                        
+                        
+                        
+                        
+                                    
+                           </tbody>
+                    </table>
+                </div>
+                    
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

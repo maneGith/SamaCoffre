@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container" id="content"> 
+                   
+                  <h1>
+                      <span class="mt-4">
+                            {{guichet.agence.nom}}
+                      </span>
+                  </h1>
+                  
+     
+                      <div style="text-align: right;" class="width-input-field">        
+                    <span style="float: right">
+                         <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="margin-left:2px;float:left;">
+                                    <span id="loadingsearch" style="display: none">
+                                        <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                        <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                        <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                     </span>    
+                                </li>
+                                <li style="margin-left:10px;float:left;">
+                                 
+                                  
+                           
+                                </li>
+                        </ul>
+                    </span>
+            </div>
+                                    
+    {{ form_start(edit_form,{'attr' : {'class':'form_submitupdate'}}) }}
+    
+
+        <div class="width-input-field">
+
+            <div class="form-group">
+                  <span style="color: red">{{ guichet.user.nom }}</span> 
+                   <span style="font-weight: bold">Gestion Coffre</span> 
+
+            </div>
+
+            <div class="form-group">
+                <b>E-mail</b>
+                <input type="email"  name="email"  class="form-control"  value="{{ guichet.user.email }}" required autofocus />
+            
+                    {% if errorused is defined %}
+                        {% if errorused == 1 %}
+                            <ul id="errorused">
+                                <li>
+                                     L'adresse saisie est déjà utilisée.
+                                </li>
+                            </ul>
+                         {% endif %}
+                    {% endif %}
+                    
+                    {% if errorused is defined %}
+                        {% if errorused == 2 %}
+                                <ul id="errorinvalid">
+                                    <li>
+                                         L'adresse saisie est invalide.
+                                    </li>
+                                </ul>
+                        {% endif %}
+                    {% endif %}
+
+
+                    {% if errorused is defined %}
+                        {% if errorused == 3 %}
+                            <ul id="errorfound">
+                                <li>
+                                     L'adresse saisie est introuvable.
+                                </li>
+                            </ul>
+                         {% endif %}
+                    {% endif %}
+            
+            </div>
+
+            <div class="form-group">
+                <b>Téléphone</b>
+                <input type="text"  name="telephone"  class="form-control telephone"  value="{{ guichet.user.telephone }}" required autofocus />
+                {% if errorused is defined %}
+                    {% if errorused == 4 %}
+                        <ul id="errorphone">
+                            <li>
+                                 Le numéro est de 5 caractères au moins.
+                            </li>
+                        </ul>
+                     {% endif %}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <b>Droit Gestion Coffre</b>
+                <div class="radio">
+                    <label class="required">
+                        <input  name="droitauto" required="required" value="oui" type="radio"  {% if guichet.droitauto=='oui'%} checked {% endif %}  />
+                        oui
+                    </label>
+                    <label class="required" style="float: right">
+                        <input  name="droitauto" required="required" value="non" type="radio" {% if guichet.droitauto=='non'%} checked {% endif %} />
+                        non
+                    </label>
+                </div>
+            </div>
+
+        </div> 
+    
+        <div style="height: 30px" class="width-input-field">
+             <span style="float: right">
+                 
+                   <a href="{{ path('agence_index') }}" class="btn btn-ems">Lister</a>
+                    <input type="submit" value="Modifier" class="btn  btn-ems" />
+                     <a href="{{ path('guichet_delete',{'id':guichet.id}) }}" class="btn btn-ems">Supprimer</a>
+                   
+                     
+{#                  <a href="{{ path('agence_show', { 'id': guichet.agence.id }) }}"class="btn btn-ems">Agence</a>#}
+             </span>
+        </div> 
+        
+        
+    {{ form_end(edit_form) }}
+   
+    
+        
+        
+        
+        
+        
+                </div> 
+            </div>
+            
+            
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

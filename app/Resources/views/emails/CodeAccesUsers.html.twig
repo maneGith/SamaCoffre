@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container msgauth" style="text-align: justify">
+        <p> Bonjour {{civilite}}  <b>{{nom}}</b>,</p>
+        <p> 
+            Nous(<span style="color: red;font-weight: bold">{{entreprise|upper}}</span>) avons le plaisir de vous communiquer ci-après
+           <b>votre mot de passe</b> afin de vous permettre d'accéder à votre <b>Coffre-Fort Electronique</b> pour la réception de vos documents d'entreprise - <a href="samacoffre.sn">samacoffre.sn</a>.
+        </p> 
+    </div>
+    
+    <div class="container codeauth">
+        <div>
+            <b>Mot de passe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>   <span style="color:#1b6d85;font-weight: bold">{{password}}</span>
+        </div>             
+    </div>
+    
+    <div class="container signauth"> 
+        <br/><br/>
+        <b><span style="color: #04843c">sama</span><span style="color: #265ead">COFFRE</span></b>      
+    </div>
+
+
+
+{% endblock %}

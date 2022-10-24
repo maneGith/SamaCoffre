@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    
+                     <h1>
+                        <span class="mt-4"> 
+                         Liste des Clients
+                        </span>
+                    </h1>
+                    
+                    <div style="height: 40px;padding-right: 12px">
+                           
+
+                          
+                           <span style="float: right;">
+                               
+                                            <ul style="padding:0;margin:0;list-style-type:none;">
+                                                     <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                                         <input type="text" class="searchMobile searchTerm form-control" placeholder="Client..." style="height: 30px;width: 95px">
+                                                         <div style="position: relative">
+                                                              <i class="fa fa-filter" aria-hidden="true" style="position: absolute;top: -23px;right: 5px;color: #265ead;"></i>
+                                                         </div>
+                                                        
+                                                     </li>
+                                                     <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                                         <a href="{{ path('certificat_index') }}" class="btn btn-ems r-ems" style="width: 95px">Factures</a>
+                                                     </li>
+                                            </ul>
+                            </span>
+                    </div>
+                                
+                    <table class="table-responsive table table-hover results table-fixed" >
+                        <thead>
+                            <tr>
+                              <th class="col">Client</th>
+                              {#<th class="col">
+                                  
+                                </th>#}
+                                
+                                <th class="col" style="text-align: right">
+                                    <div style="width: 300px;">
+                                        <span style="float: right;">
+                                            <ul style="padding:0;margin:0;list-style-type:none;">
+                                                     <li style="margin-left:2px;float:left;">
+                                                         <input type="text" class="search searchTerm form-control" placeholder="Client..." style="height: 30px;width: 95px">
+                                                     <div style="position: relative">
+                                                              <i class="fa fa-filter" aria-hidden="true" style="position: absolute;top: -23px;right: 5px;color: #265ead;"></i>
+                                                     </div>
+                                                     </li>
+                                                     <li style="margin-left:2px;float:left;">
+                                                         <a href="{{ path('certificat_index') }}" class="btn btn-ems r-ems" style="width: 95px">Factures</a>
+                                                     </li>
+                                            </ul>
+                                        </span>
+                                    </div>
+                                </th>
+                             
+                              {#<th class="col">
+                                <div style="width: 200px">
+
+                                </div>
+                              </th>#}
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="4"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                              {% for adminEntreprise in adminEntreprises %}
+                                <tr>
+                                    <td data-label="Client">
+                                        {{ adminEntreprise.entreprise.nom|capitalize }}
+                                    </td> 
+                                   
+                                  
+                                   
+                                    <td  class="action" style="text-align: right">
+{#                                        <div style="width: 170px;float: right;">#}
+
+                                        <span style="float: right;">
+                                            <ul style="padding:0;margin:0;list-style-type:none;">
+                                                <li style="margin-left:2px;float:left;">
+                                                   <a href="{{ path('adminentreprise_show', { 'id': adminEntreprise.id }) }}" class="btn btn-ems"  style="width: 95px">
+                                                       Détails
+                                                   </a> 
+                                                </li>
+                                                <li style="margin-left:2px;float:left;">
+                                                    <a href="{{ path('entrepriseservice_index', { 'id': adminEntreprise.entreprise.id }) }}" class="btn btn-ems r-ems" style="width: 95px">Services</a>
+                                                </li>
+
+                                                <li style="margin-left:2px;float:left;">
+                                                    <a href="{{path('certificat_client', { 'id': adminEntreprise.entreprise.id })}}" class="btn btn-ems r-ems" style="width: 95px">Factures</a>
+                                                     </li>
+                                            </ul>
+                                        </span><br/>
+                                            
+                                                
+                                            
+
+                                            
+                                    </td>
+                                   
+                                  
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        
+                        
+                        
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                            <div><span class="close" id="close">
+                              &times;</span>
+                            </div>
+
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Client</h1>
+                            </div>
+                                
+                        <div id="loadingsearch" style="text-align: right;display: none">
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                        </div>
+                        {{ form_start(form,{'attr' : {'class':'form_submit'}}) }}
+                        
+                        <div class="form-group">
+                           
+                            {{ form_widget(form.entreprise.nom,{'attr':{'class':'form-control ltc-nom nom', 'placeholder':'Nom'}}) }}
+                            {{ form_errors(form.entreprise.nom) }}
+                            <ul id="errorname" style="display: none">
+                                <li>
+                                     Le nom de l'entrepreise est obligatoire.
+                                </li>
+                            </ul>
+                        </div>
+                            
+                        <div class="form-group">
+                              <input type="adresse" name="adresse"   class="form-control ltc-nom" placeholder="Adresse" required autofocus/>
+                             <ul id="erroradresse" style="display: none">
+                                <li>
+                                     L'adresse de l'entrepreise est obligatoire !
+                                </li>
+                            </ul>
+                        </div>
+                        
+                         
+                        <div class="form-group">
+                            <input type="email" name="email"   class="form-control email-input" placeholder="E-mail" required autofocus/>
+                            
+                            <ul id="errorinvalid" style="display: none">
+                                <li>
+                                     Cette adresse e-mail est invalide.
+                                </li>
+                            </ul>
+                            <ul id="errorused" style="display: none">
+                                <li>
+                                     Cette adresse e-mail est déjà utilisée.
+                                </li>
+                            </ul>
+                            <ul id="errorfound" style="display: none">
+                                <li>
+                                     Cette adresse e-mail est introuvable.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="telephone"   class="form-control telephone" placeholder="Téléphone" required autofocus/>
+                            <ul id="errorphone" style="display: none">
+                                <li>
+                                    Le numéro téléphone doit contenir au moins <b>cinq chiffres</b>.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        
+                        
+                        <div style="height: 30px">
+                            <span style="float: right">
+                                <input type="submit" value="Ajouter" class="btn  btn-ems submit-button" />
+                            </span>
+                        </div>
+                        
+                        {{ form_end(form) }}
+                        
+                        </div>               
+                    </div>
+                    
+                        
+                        
+                </div>       
+            </div>             
+        </div>               
+     </div>
+
+
+
+
+
+{% endblock %}

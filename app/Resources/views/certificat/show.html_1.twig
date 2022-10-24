@@ -1,0 +1,393 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">
+                    <h4>
+                        <span class="mt-4"> 
+                         <h1>Facture Dépôts Dans Coffres</h1>
+                        </span>
+                    </h4>
+                     
+                    <div style="text-align: center;margin-bottom: 5px">
+                        {%if client=='y'%}
+                            <a href="{{path('certificat_client', { 'id': certificat.entreprise.id })}}" class="btn btn-ems r-ems" style="width: 105px">Factures</a>
+                        {%else%}
+                            <a  href="{{path('certificat_certificat',{ 'periode': certificat.date|date('Y-m')})}}" class="btn btn-ems r-ems" style="width: 105px">
+                                Factures
+                            </a>
+                        {%endif%}
+                        
+                        <a  class="btn btn-ems r-ems" style="width: 105px" href="#pageA4" onclick="printContent('pageA4')">Imprimer</a>
+                        
+                       
+                    </div>
+                   
+                    
+                    <div class="pageA4" size="A4" style="padding: 5px" id="pageA4">
+                        <div> 
+                            <img src="{{ asset('img/logo-ems.jpg') }}" alt="icone" width="70px" height="50px"/>
+                            <span style="float: right">
+                                <img src="{{ asset('img/logo-samacoffre.png') }}" alt="icone" width="60px" height="50px"/>
+                            </span>
+                            
+                        </div>
+                        <div style="text-align: right"> 
+                            {% set mm=certificat.date.format('m')%}
+                            Le {{certificat.date.format('d')}}
+
+                                {% if(mm==01) %}  
+                                    Janvier 
+                                {% elseif (mm==02) %}  
+                                    Février 
+                                {% elseif (mm==03) %}  
+                                    Mars  
+                                {% elseif (mm==04) %}  
+                                    Avril  
+                                {% elseif (mm==05) %}  
+                                    Mai  
+                                {% elseif (mm==06) %}  
+                                    Juin  
+                                {% elseif (mm==07) %}  
+                                    Juillet  
+                                {% elseif (mm==08) %}  
+                                    Août  
+                                {% elseif (mm==09) %}  
+                                    Septembre  
+                                {% elseif (mm==10) %}  
+                                    Octobre 
+                                {% elseif (mm==11) %}  
+                                    Novembre  
+                                {% elseif (mm==12) %}  
+                                    Décembre  
+                                {% endif %}
+                                            
+                           
+                            {{certificat.date.format('Y')}}
+                        </div>
+                        
+                        <div>
+                                <div style="margin-left: 40%;display: inline-block">
+                                       Facture N°
+                                </div>
+                                <div style="display: inline-block;padding-left: 5px;">
+                                      <b>{{certificat.numero}}</b>
+                                </div>
+                        </div>
+                                
+                                
+                        <div style="margin-top: 3px;">
+                                <div style="display: inline-block;width: 60%;">
+                                    <b>{{certificat.entreprise.nom}}</b>
+                                </div>
+                                <div style="display: inline-block;width: 40%;margin-left: -5px;border: 1px solid;text-align: center">
+                                      <b>Dépôts Dans Coffres</b>
+                                </div>
+                        </div>
+                                
+                        <div>
+                                <div style="display: inline-block;width: 60%;">
+                                     {{certificat.entreprise.adresse}}
+                                </div>
+                                <div style="display: inline-block;width: 20%;margin-left: -5px;border-left: 1px solid;border-right: 1px solid;border-bottom: 1px solid">
+                                      Du 01/{{mm}}/{{certificat.date.format('Y')}}
+                                </div>
+                                <div style="display: inline-block;width: 20%;margin-left: -5px;border-right: 1px solid;border-bottom: 1px solid;text-align: right">
+                                     Au {{certificat.date.format('d')}}/{{mm}}/{{certificat.date.format('Y')}}
+                                </div>
+                        </div>
+                                
+                        <div>
+                                <div style="display: inline-block;width: 60%;">
+                                    {#Réf Client :
+                                     {% if certificat.entreprise.id|length == 1 %}
+                                       000{{certificat.entreprise.id}}
+                                    {% elseif  certificat.entreprise.id|length == 2 %}
+                                        00{{certificat.entreprise.id}}
+                                    {% elseif  certificat.entreprise.id|length == 3 %}
+                                        0{{certificat.entreprise.id}}
+                                    {% endif %}                 #}  
+                                    &nbsp;
+                                </div>
+                                <div style="display: inline-block;width: 40%;margin-left: -5px">
+                                      &nbsp;
+                                </div>
+                        </div>
+                                
+                         <div style="margin-top: 40px;">
+                              <div style="display: inline-block;width: 50%;border-left: 1px solid;border-top: 1px solid;border-bottom: 1px solid;text-align: center">
+                                 <b>LIBELLE</b>
+                                   </div>
+                             <div style="display: inline-block;width: 15%;margin-left: -7px;border-left: 1px solid;border-top: 1px solid;border-bottom: 1px solid;text-align: center">
+                                  <b>QUANTITE</b>
+                                   </div>
+                             <div style="display: inline-block;width: 10%;margin-left: -7px;border-left: 1px solid;border-top: 1px solid;border-bottom: 1px solid;text-align: center">
+                                  <b>PRIX</b>
+                                   </div>
+                             
+                              <div style="display: inline-block;width: 25.23%;margin-left: -6px;border: 1px solid;text-align: center">
+                                  <b>TOTAL</b>
+                                   </div>
+                         </div>
+                            
+                                
+                       {#  Declaration variables    #} 
+                      
+                        {% set brEnr=0%}
+                       
+                        
+                        {% for ligneCertificat in certificats %}
+                            <div>
+                                <div style="display: inline-block;width: 50%;border-left: 1px solid;text-align: center">
+
+                                  {% if(ligneCertificat.categorie!=null) %} 
+                                      {{ligneCertificat.categorie}}
+                                  {% else %}
+                                      {{ligneCertificat.entrepriseservice.service.service}}
+                                  {% endif %}
+                                </div>
+                                <div style="display: inline-block;width: 15%;margin-left: -7px;border-left: 1px solid;text-align: center">
+                                    {{ligneCertificat.nbplis}}
+                                </div>
+                                <div style="display: inline-block;width: 10%;margin-left: -7px;border-left: 1px solid;text-align: center">
+
+                                    {%if ligneCertificat.prixunitaire|striptags|slice(ligneCertificat.prixunitaire|length-2)|raw==0%}
+                                           {{ ligneCertificat.prixunitaire|striptags|slice(0, ligneCertificat.prixunitaire|length-3)|raw }}
+                                      {%else%}
+                                          {{ligneCertificat.prixunitaire}}
+                                       {%endif%}
+                                </div>
+
+                                <div style="display: inline-block;width: 25.23%;margin-left: -6px;border-left: 1px solid;border-right: 1px solid;text-align: right">
+                                    {% set total = ligneCertificat.nbplis*ligneCertificat.prixunitaire %}
+                                    
+                                    {% if total|length > 6 %}
+                                        {{ total|striptags|slice(0, total|length-6)|raw }}
+
+                                        {{ total|striptags|slice(total|length-6, 3)|raw }}
+
+                                        {{ total|striptags|slice(total|length-3, 3)|raw }}
+
+                                    {% elseif(total|length > 3) %}
+                                        {{ total|striptags|slice(0, total|length-3)|raw }}
+
+                                        {{ total|striptags|slice(total|length-3, 3)|raw }}
+
+                                    {% else %}
+                                        {{ total }}
+                                    {% endif %}
+                                    
+                                   
+
+                                  
+
+                                </div>
+                               
+                                {% set brEnr = brEnr + 1 %}
+                                    
+                            </div>  
+                        {% endfor %}
+                        {% set brEnr = brEnr + 1 %}
+                        
+                        {% for i in brEnr..10 %}
+                          <div>
+                                <div style="display: inline-block;width: 50%;border-left: 1px solid;text-align: center">
+                                    &nbsp;
+                                </div>
+                                <div style="display: inline-block;width: 15%;margin-left: -7px;border-left: 1px solid;text-align: center">
+                                    &nbsp;
+                                </div>
+                                <div style="display: inline-block;width: 10%;margin-left: -7px;border-left: 1px solid;text-align: center">
+                                    &nbsp;
+                                </div>
+
+                                <div style="display: inline-block;width: 25.23%;margin-left: -6px;border-left: 1px solid;border-right: 1px solid;text-align: right">
+                                    &nbsp;
+                                </div>
+                                
+                                    
+                            </div> 
+                        {% endfor %}
+                        
+                        <div>
+                              <div style="display: inline-block;width: 50%;border-top: 1px solid;text-align: center">
+                                {# <b>ANTERIEURE</b>#}&nbsp;
+                                   </div>
+                             <div style="display: inline-block;width: 24.80%;margin-left: -7px;border: 1px solid;text-align: center">
+                                  <b>Total HT</b>
+                                   </div>
+                             
+                             
+                            <div style="display: inline-block;width: 25.20%;margin-left: -6px;border: 1px solid;text-align: right">
+                                
+                                  {% if certificat.horstva|length > 6 %}
+                                        {{ certificat.horstva|striptags|slice(0, certificat.horstva|length-6)|raw }}
+                                        {{ certificat.horstva|striptags|slice(certificat.horstva|length-6, 3)|raw }}
+                                        {{ certificat.horstva|striptags|slice(certificat.horstva|length-3, 3)|raw }}
+                                    {% elseif(certificat.horstva|length > 3) %}
+                                        {{ certificat.horstva|striptags|slice(0, certificat.horstva|length-3)|raw }}
+                                        {{ certificat.horstva|striptags|slice(certificat.horstva|length-3, 3)|raw }}
+                                    {% else %}
+                                        {{ certificat.horstva }}
+                                    {% endif %}
+                                  
+                                 
+                                    
+                            </div>
+                         </div>
+                                   
+                                   
+                        <div>
+                              <div style="display: inline-block;width: 25%;margin-left: -1px;border-left: 1px solid white;text-align: center">
+                                {# <b>N° Facture</b>#}&nbsp;
+                                   </div>
+                                       
+                                       <div style="display: inline-block;width: 25%;margin-left: -5px;border-left: 1px solid white;border-right: 1px solid;text-align: center">
+                                {# <b>Montant (2)</b>#}&nbsp;
+                                   </div>
+                                       
+                             <div style="display: inline-block;width: 24.80%;margin-left: -6px;border: 1px solid;text-align: center">
+                                  <b>TVA 18%</b>
+                                   </div>
+                             
+                             
+                              <div style="display: inline-block;width: 25.20%;margin-left: -6px;border: 1px solid;text-align: right">
+
+                                    {% if certificat.tva|length > 6 %}
+                                        {{ certificat.tva|striptags|slice(0, certificat.tva|length-6)|raw }}
+                                        {{ certificat.tva|striptags|slice(certificat.tva|length-6, 3)|raw }}
+                                        {{ certificat.tva|striptags|slice(certificat.tva|length-3, 3)|raw }}
+                                    {% elseif(certificat.tva|length > 3) %}
+                                        {{ certificat.tva|striptags|slice(0, certificat.tva|length-3)|raw }}
+                                        {{ certificat.tva|striptags|slice(certificat.tva|length-3, 3)|raw }}
+                                    {% else %}
+                                        {{ certificat.tva }}
+                                    {% endif %}
+                                  
+                                  
+                                   </div>
+                         </div>
+                                   
+                        <div>
+                              <div style="display: inline-block;width: 25%;margin-left: -1px;border-left: 1px solid white;text-align: center">
+                                &nbsp;
+                                   </div>
+                                       
+                                       <div style="display: inline-block;width: 25%;margin-left: -5px;border-left: 1px solid white;text-align: center">
+                                 &nbsp;
+                                   </div>
+                                       
+                             <div style="display: inline-block;width: 24.80%;margin-left: -6px;border: 1px solid;text-align: center">
+                                  <b>Total TTC</b>
+                                   </div>
+                             
+                             
+                              <div style="display: inline-block;width: 25.20%;margin-left: -6px;border: 1px solid;text-align: right">
+                                  
+                                  
+                                  {% if certificat.montant|length > 6 %}
+                                        {{ certificat.montant|striptags|slice(0, certificat.montant|length-6)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-6, 3)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+                                    {% elseif(certificat.montant|length > 3) %}
+                                        {{ certificat.montant|striptags|slice(0, certificat.montant|length-3)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+                                    {% else %}
+                                        {{ certificat.montant }}
+                                    {% endif %}
+                                 
+                                   </div>
+                         </div>
+                                    
+                        <div style="margin-top: 20px;padding-right: 5px">
+                            Arrétée la Présente Facture à la Somme de : 
+                            <b>
+                               {% if certificat.montant|length > 6 %}
+                                        {{ certificat.montant|striptags|slice(0, certificat.montant|length-6)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-6, 3)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+                                    {% elseif(certificat.montant|length > 3) %}
+                                        {{ certificat.montant|striptags|slice(0, certificat.montant|length-3)|raw }}
+                                        {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+                                    {% else %}
+                                        {{ certificat.montant }}
+                                    {% endif %}
+                                    FCFA
+                            </b>
+                        </div>
+                        <div style="text-align: center">
+                            <b>{{ttlettre|upper}}</b>
+                        </div>
+                                   
+                                   
+                                   
+                                   
+                        
+                        
+                        
+                           
+                        {#<div>
+                            <div style="display: inline-block;width: 12cm">
+                                <div>
+                                   <b>{{certificat.entreprise.nom}}</b>
+                                </div>
+                                 <div>
+                                   {{certificat.entreprise.adresse}}
+                                </div>
+                                 <div>
+                                   <b>Référence Client :</b>
+                                     {% if certificat.entreprise.id|length == 1 %}
+                                       000{{certificat.entreprise.id}}
+                                    {% elseif  certificat.entreprise.id|length == 2 %}
+                                        00{{certificat.entreprise.id}}
+                                    {% elseif  certificat.entreprise.id|length == 3 %}
+                                        0{{certificat.entreprise.id}}
+                                    {% endif %}                                   
+                                </div>
+                            </div>
+                            
+                             <div style="display: inline-block;margin-left: -6px;width: 8.7cm">
+                                <div style="border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;text-align: center">
+                                    <b>Dépôts Dans Coffres</b>
+                                </div>
+                                <div style="border: 1px solid;">
+                                    <div style="display: inline-block;border-right: 1px solid;width: 4.23cm">
+                                        Du 01/{{mm}}/{{certificat.date.format('Y')}}
+                                    </div>
+                                     
+                                    <div style="display: inline-block;width: 4.2323cm;text-align: right">
+                                        Au {{certificat.date.format('d')}}/{{mm}}/{{certificat.date.format('Y')}}
+                                    </div>
+                                </div>
+                                 <div>
+                                   &nbsp;
+                                </div>
+                             </div>
+                            
+                        </div> #}            
+                        
+                            
+{#                                {{certificat.date.format('d/m/Y')}}#}
+                    </div> 
+                    
+                    
+                    
+                    
+                   {# <div class="modalframe">
+                        <iframe src="{{path('certificat_pdfShow', { 'id': certificat.id })}}" scrolling="no" frameborder="0" height="1200" width="100%"></iframe>
+                    </div>#}
+{#                   <object data="nomdupdf.pdf" type="application/pdf" title="cv" width="800" height="885"></object>#}
+                </div> 
+            </div>    
+        </div>
+     </div>
+            
+{% endblock %}

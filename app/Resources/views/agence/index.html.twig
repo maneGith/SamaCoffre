@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <div class="content container">       
+                    
+                     <h1>
+                        <span class="mt-4"> 
+                           Guichets Gestion Coffre
+                        </span>
+                    </h1>
+                    
+                  
+                    
+                    <div style="height: 40px;">
+                       <span style="float: right;margin-bottom: 5px">
+                           <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                   <a href="#" class="myBtn btn btn-ems r-ems" style="width: 150px">Point de Service</a>
+                               </li>
+                           </ul>
+                       </span>
+
+                       <span style="float:left;">
+                           <input type="text" class="search searchTerm form-control" placeholder="Point de Service..." style="height: 30px">
+                            <div style="position: relative">
+                                <i class="fa fa-filter" aria-hidden="true" style="position: absolute;top: -24px;right: 28px;color: #265ead;"></i>
+                            </div>
+                       </span>
+                   </div>
+                   
+
+                    
+                    <table class="table-responsive table table-hover results table-fixed" style="overflow-x:hidden">
+                        <thead>
+                            <tr>
+                                <th class="col">Point de Service</th>
+
+                                
+                                 <th class="col">
+                                   <div style="width: 215px;text-align: right">
+                                      <a href="#" class="myBtn btn btn-ems r-ems" style="width: 150px">Point de Service</a>
+                                  </div>
+                                </th>
+                                
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="2"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             {% for agence in agences %}
+                                <tr>
+                                    <td data-label="Point de Service">
+                                            {{ agence.agence.nom }}
+                                        <span style="float:right" class="cliupdatePU" >
+                                            <a href="#" style="text-decoration: none;color: #777"> 
+                                                <i class="fa fa-caret-square-o-down" aria-hidden="true" style="color: #265ead;"></i>
+                                            </a>
+                                        </span>
+                                        <div style="display: none;max-width: 20rem;height: 115px;background: #FFF" class="updatePU fPU"> 
+                                            <form action="{{path('agence_edit',{'id':agence.agence.id})}}" method="post">
+                                                <div style="text-align:center">
+                                                      <span style="color: #265ead;font-weight: bold">Modification</span>
+                                            </div>
+                                                <b>Point de Service</b>
+                                                    <div class="form-group">
+                                                        <input type="text"  name="nom"  class="form-control ltc-nom"  value="{{agence.agence.nom}}" required autofocus>
+                                                    </div>
+                                                <span style="float: right">
+                                                     <a href=""class="btn btn-ems">Annuler</a>
+                                                    <input type="submit"  class="btn btn-ems" value="Modifier"/> 
+                                                   
+                                                </span>      
+                                            </form>
+                                        </div>
+                                                    
+                                         <div>&nbsp;</div>
+                                        
+                                        {% for guichet in agence.guichets %}
+                                            <div style="text-align: right;border-top: 1px solid">
+                                                <a href="{{ path('guichet_edit', { 'id': guichet.id }) }}" style="text-decoration: none">{{ guichet.user.nom }} </a>
+                                            </div>
+                                        {% endfor %}
+                                    </td> 
+
+                                     <td class="action">
+                                       
+                                            <span style="float: right">
+                                                
+                                                     {% if agence.guichets|length<3 %}
+                                                         <a href="{{ path('guichet_new', { 'id': agence.agence.id }) }}" class="btn btn-ems" style="width: 105px">
+                                                            Guichet 
+                                                        </a>
+                                                     {% else %}
+                                                          <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">
+                                                           Guichet
+                                                          </a>
+                                                     {% endif %}
+
+                                                {% if agence.guichets|length==0 %}
+                                                    <a href="{{ path('agence_delete', { 'id': agence.agence.id }) }}" class="btn btn-ems" style="width: 105px">
+                                                        Suppression
+                                                    </a>
+                                                {% else %}
+                                                    <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 105px">
+                                                        Suppression
+                                                    </a>
+                                                {% endif %}
+                                            </span>
+                                                      <br/>
+                                        
+                                       
+                                    </td> 
+                                  
+                                   
+                                   
+                                    
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                        
+                        
+                        
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                            <div><span class="close" id="close">
+                              &times;</span>
+                            </div>
+
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Point de Service</h1>
+                            </div>
+                                {{ form_start(form) }}
+                                    <div class="form-group">
+                                        <b>Nom</b>
+                                        {{ form_widget(form.nom,{'attr':{'class':'form-control ltc-nom'}}) }}
+                                        {{ form_errors(form.nom) }}
+                                    </div>
+                                    <div style="height: 30px">
+                                        <span style="float: right">
+                                            <input type="submit" value="Ajouter" class="btn  btn-ems" />
+                                        </span>
+                                    </div>
+                                {{ form_end(form) }}
+                        </div>               
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

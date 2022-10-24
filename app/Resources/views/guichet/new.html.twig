@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container" id="content"> 
+                  <h1>
+                      <span class="mt-4">
+                            Guichet Gestion Coffre
+                      </span>
+                  </h1>
+                   <div class="width-input-field">
+                        <div class="form-group">
+                            <b>Point de Service :</b> &nbsp;&nbsp;<span style="color: red">{{ agence.nom }}</span>
+                        </div>
+                        
+                        <div id="loadingsearch" style="text-align: right;display: none">
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                    </div>
+                    
+                   {{ form_start(form,{'attr' : {'class':'form_submit'}}) }}
+{#                        {{ form_widget(form) }}#}
+                        <input type="hidden" name="nomguichet"  value="guichet" class="ltc-nom nom" required autofocus/>
+                        <input type="hidden" name="adresse"  value="adresse" class="ltc-nom nom" required autofocus/>
+                        <div class="form-group">
+                            <input type="email" name="email"   class="form-control email-input" placeholder="E-mail" required autofocus/>
+                            
+                            <ul id="errorinvalid" style="display: none">
+                                <li>
+                                     Cet adresse e-mail est invalide.
+                                </li>
+                            </ul>
+                            <ul id="errorused" style="display: none">
+                                <li>
+                                     Cet adresse e-mail est déjà utilisé.
+                                </li>
+                            </ul>
+                            <ul id="errorfound" style="display: none">
+                                <li>
+                                     Cet adresse e-mail est introuvable.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="telephone"   class="form-control telephone" placeholder="Téléphone" required autofocus/>
+                            <ul id="errorphone" style="display: none">
+                                <li>
+                                   Le numéro est de 5 caractères au moins.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        {#<div class="form-group">
+                            <b>Droit Coffre</b>
+                                <div class="radio">
+                                    <label class="required">
+                                        <input  name="droitauto" required="required" value="oui" type="radio"  checked  />
+                                        oui
+                                    </label>
+                                
+
+                                 
+                                    <label class="required" style="float: right">
+                                        <input  name="droitauto" required="required" value="non" type="radio"/>
+                                        non
+                                    </label>
+                                </div>
+                        </div>
+                        #}
+                        
+                        
+                        <div style="height: 30px">
+                            <span style="float: right">
+                                <a href="{{ path('agence_index') }}" class="btn btn-ems">Lister</a>
+                                <input type="submit" value="Créer" class="btn  btn-ems submit-button" />
+                            </span>
+                        </div>
+                    {{ form_end(form) }}
+                   </div> 
+
+        
+                </div> 
+            </div>
+            
+            
+        </div>
+     </div>
+
+{% endblock %}

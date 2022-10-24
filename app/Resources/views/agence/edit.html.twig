@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container" id="content"> 
+                   
+                  <h1>
+                      <span class="mt-4">
+                            Agence
+                      </span>
+                  </h1>
+                  
+      <div class="width-input-field" style="height: 15px">            
+            <span style="float: right">
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Delete"  class="btn  btn-ems">
+                {{ form_end(delete_form) }}
+            </span>
+    </div>  
+{{ form_start(edit_form) }}
+    
+    
+        <div class="form-group">
+            <b>Nom</b>
+            {{ form_widget(edit_form.nom,{'attr':{'class':'form-control width-input-field'}}) }}
+            {{ form_errors(edit_form.nom) }}
+        </div> 
+
+    
+       
+    
+          <div style="height: 30px" class="width-input-field">
+               <span style="float: right">
+                    <input type="submit" value="Modifier" class="btn  btn-ems" />
+                    <a href="{{ path('agence_show', { 'id': agence.id }) }}"class="btn btn-ems">Agence</a>
+               </span>
+          </div> 
+        
+        
+    {{ form_end(edit_form) }}
+    
+
+    
+        
+        
+        
+        
+        
+                </div> 
+            </div>
+            
+            
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

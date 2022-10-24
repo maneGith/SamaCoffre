@@ -1,0 +1,146 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}samaCOFFRE{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('icon-samacoffre.png') }}" />
+    </head>
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+      <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+              <!-- Page menu -->
+            {{ include('includes/connexion.html.twig') }}
+             <div id="page-content-wrapper-connexion" style="background: #FFF">
+                {{ include('security/login_content.html.twig') }}
+             </div>
+        </div>   
+             
+             <div style="display: none;">
+                 <p>
+                SamaCOFFRE, Distribution De Courriers Electroniques D'Entreprise.
+                SamaCOFFRE, Une Solution Idéale Pour  La Distribution De Courriers Electroniques D'Entreprise.
+                Avec SamaCOFFRE, Mes Employés Reçoivent Leurs Courriers Electroniques D'Entreprise En Temps Réel.
+                Avec SamaCOFFRE, Le Reporting De La Réception Des Courriers Electroniques D'Entreprise En Temps Réel Est Assuré.
+                </p>
+             </div>
+    </div>
+            
+             
+             {#<div style="background: #333!important;position: fixed;bottom: 0;width: 100%" id="footerDesk">
+        
+        <div class="container">
+  <div class="row">
+    <div class="col-sm" style="text-align:left">
+        <span style="color:#FFF;font-weight: 100px">
+             Les Tarifs
+        </span>
+    </div>
+    <div class="col-sm" style="text-align:center">
+        <span style="color:#FFF;font-weight: 100px">
+            Les Contacts
+       </span>
+    </div>
+    <div class="col-sm" style="text-align:right">
+            <span style="color:#FFF;font-weight: 100px">
+                Copy@Right LSD
+            </span>
+    </div>
+  </div>
+</div>
+        
+        
+        
+        
+    </div>#}
+             
+        
+             
+            
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+        <div class="modal-content" style="max-width: 20.7rem; color: #5f6368;font-size: 14px;line-height: 1.4286;">
+            
+            <div style="text-align: justify" id="ModalInfoCoffre">
+                 <div style="text-align: center"><h2>Distribuer vos documents RH et Clients</h2>
+                 </div>
+                 <ul style="list-style: none">
+                     <li>
+                <b>1.</b> Vous êtes <b>Entreprise</b> ou <b>Banque</b>, vous envoyez à vos Salariés ou Clients des <b>Bulletins de Paie</b>,  <b>Factures</b>, <b>Relevés de Banque</b>..., ou <b>Informations</b>,
+                        <b><a href="#" class="myBtn creerEntreprise" style="color:  #265ead;font-style: italic;text-decoration: underline">inscrivez votre Entreprise</a></b></b>!
+                 </li>
+         
+                 <li><br/>
+                <b>2.</b> Vous êtes <b>Salarié ou Client d'une Entreprise</b>, <a href="#" class="myBtn creerCoffre" style="color:  #265ead;font-style: italic;text-decoration: underline;font-weight: bold">créer votre Coffre</a>
+                et recevez vos Documents en temps réel!
+               </li>
+                 </ul>
+                <div style="border-bottom: solid 1px #d2d2d2;margin-top: 5px"></div>
+                <b><span style="color: #66CDAA">sama</span><span style="color: #265ead">COFFRE</span></b> permet à une Entreprise d'envoyer des Documents ou Informations à  ses Salariés et Clients en un clic en éliminant
+                les retards, pertes de documents et coûts d’impression.
+                 <div style="border-bottom: solid 1px #d2d2d2;margin-top: 5px"></div>
+                 <div style="text-align: left;font-style: italic;padding: 5px;font-size: 30px;"> 
+               <b>{{nentreprises}}
+                   {%if nentreprises==1%}
+                        Entreprise Utilise 
+                   {%else%}
+                        Entreprises Utilisent 
+                   {%endif%}
+                  
+                   La Solution</b>
+           </div>   
+                <div><span class="close">
+              <a href="#" class="btn btn-ems">OK</a>
+                </span>
+            </div>
+                
+            </div>
+            
+          
+            <div style="text-align: center;display: none" id="ModalNewCoffre">
+                 <div><span class="close"  style="color: red;font-weight: bold">&times;</span></div>
+                  {{ include('user/coffre.html.twig') }}
+            </div>
+            
+            <div style="text-align: center;display: none" id="ModalNewEntreprise">
+                 <div><span class="close"  style="color: red;font-weight: bold">&times;</span></div>
+                  {{ include('default/formEntreprise.html.twig') }}
+            </div>
+            
+            <div style="text-align: justify;display: none" id="ModalCreatedCoffre">
+                 <div>
+                     <div> Bonjour! <sapn id="nomCoffre" style="color: #155724;font-weight: bold"></sapn>, vous venez de créer votre  Coffre avec Succès.</div>
+                     
+                     <div><b>Email :</b><sapn id="emailCoffre" style="color: #155724;font-weight: bold"></sapn></div>
+                         Profitez-vous en et demandez à tous ceux qui vous doivent des documents électroniques de les y déposer. Merci!
+                    <div>
+                        <span class="close">
+                            <a href="#" class="btn btn-ems">OK</a>
+                        </span>
+                    </div>
+                 </div>
+            </div>
+            
+            <div style="text-align: justify;display: none" id="ModalCreatedEntreprise">
+                 <div>
+                     <div> Bonjour! Vous venez d'inscrire votre  Entreprise  <sapn id="nomEntreprise" style="color: #155724;font-weight: bold"></sapn> avec succès.</div>
+                     
+                     <div><b>Email : </b><sapn id="emailEntreprise" style="color: #155724;font-weight: bold"></sapn></div>
+                         Profitez-vous en! Envoyez les Documents Electroniques dans les Coffres de vos Clients ou Employés! Merci!
+                    <div>
+                        <span class="close">
+                            <a href="#" class="btn btn-ems">OK</a>
+                        </span>
+                    </div>
+                 </div>
+            </div>
+            
+            
+            
+        </div>               
+    </div>
+{% endblock %}
+</html>

@@ -1,0 +1,121 @@
+{% block body %}
+      <div><b>S'inscrire</b></div>
+    <div id="loadingmessage" style="display:none;text-align: right">
+         <img src="{{ asset('img/ajax-loader.gif') }}" />
+          <img src="{{ asset('img/ajax-loader.gif') }}" />
+       <img src="{{ asset('img/ajax-loader.gif') }}" />
+    </div>
+{#    {{ form_start(form, { 'action': path('user_new') , 'attr' : {'id':'form_user'} } ) }}#}
+    
+<form method="post" id="form_user">
+        <div>
+            <span style="font-size: 13px">Vous êtes :</span>
+        </div>
+       
+        <div class="radio form-group">
+            <label class="required">
+                <input id="civilite-categ-pa" name="civilite-categ" required="required" value="Particulier" type="radio" checked/>
+                Particulier
+            </label>
+
+            <label class="required">
+                <input id="civilite-categ-et" name="civilite-categ" required="required" value="Entreprise" type="radio"/>
+                Entreprise
+            </label>
+
+            <label class="required">
+                <input id="civilite-categ-pl" name="civilite-categ" required="required" value="P. libérale" type="radio"/>
+                P. libérale
+            </label>
+        </div>
+
+        <div class="form-group" style="display: none">
+            <input type="text" id="appbundle_utilisateur_civilite" name="civilite"  class="form-control" value="Mr(Mme)" required autofocus>
+        </div>
+        
+      
+        <fieldset style="margin-top: -10px">
+                <legend align="center">Vos identifiants - utilisateurs</legend>                                         
+                <div class="form-group person-donnee">
+                    <input type="text" name="prenom" id="appbundle_utilisateur_prenom"  class="form-control ltc-nom" placeholder="Prénom" required autofocus/>
+                </div>
+                <div class="form-group">
+                     <input type="text" name="nom" id="appbundle_utilisateur_nom"  class="form-control ltc-nom" placeholder="Nom de famille" required autofocus/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telephone" id="appbundle_utilisateur_telephone" class="form-control" placeholder="Téléphone" required autofocus/>
+                    <div id="errorphone" style="padding-left: 5px;display: none">                        
+                        <span style="font-size: 12px;color: #C82829">
+                            Numéro téléphone erroné!
+                        </span>
+                        <span style="font-size: 12px">
+                            5 chiffres au moins.
+                        </span>
+                    </div>
+                </div>                       
+        </fieldset>
+          
+        
+        <fieldset>
+            <legend align="center">Vos paramètres d'accès </legend> 
+            <div class="form-group">
+               <input type="email" id="appbundle_user_email" name="email"  class="form-control" placeholder="Adresse e-mail" required autofocus>
+                <div id="erroremail" style="padding-left: 5px;display: none">
+                    <span style="font-size: 12px;color: #C82829">
+                        Cet e-mail est déjà utilisé.
+                    </span>
+                </div>
+                <div id="erroremailValidation" style="padding-left: 5px;display: none">
+                    <span style="font-size: 12px;color: #C82829">
+                       E-mail invalide!
+                    </span>
+                </div>
+               <div id="erroremailExist" style="padding-left: 5px;display: none">
+                    <span style="font-size: 12px;color: #C82829">
+                       Cet e-mail n'existe pas.
+                    </span>
+                </div>
+            </div>  
+            <div class="form-group">
+                <input type="password" id="appbundle_user_password" name="password"  class="form-control crf-pwd" placeholder="Mot de passe" required autofocus>
+                <div id="errorpwd" style="padding-left: 5px;display: none">
+                    <span style="font-size: 12px;color: #C82829">
+                        Invalide (Maj - Min et Chifr,  6 caract ou plus)!
+                    </span>
+                    <span style="font-size: 12px">
+                        Ex: 2Ery5R
+                    </span>
+                   
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="appbundle_user_passwordconfirm" name="password"  class="form-control crf-pwd" placeholder="Confirmation" disabled="true" required autofocus>
+                <div id="errorpwdconfirm" style="padding-left: 5px;display: none">
+                    <span style="font-size: 12px;color: #C82829">
+                        Ce PassWord doit être identique au premier.
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+        
+
+        
+        {#<div class="form-group">
+            {{ form_widget(form.telephone,{'attr':{'class':'form-control', 'placeholder':'Téléphone'}}) }}
+            {{ form_errors(form.telephone) }}
+        </div>#}
+        
+         
+        
+
+
+
+        <div style="height: 40px">
+            <span style="float: right">
+                <input type="submit" value="S'inscrire" class="btnwhite btn  btn-ems submit-button" />
+                <a href="#" id="useannuller" class="btnwhite btn btn-ems">Annuler</a>
+            </span>
+        </div>
+{#    {{ form_end(form) }}#}
+</form>
+{% endblock %}

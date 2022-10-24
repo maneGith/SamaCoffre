@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">
+                    <h4>
+                        <span class="mt-4"> 
+                         <h1>Facture Dépôts Dans Coffres</h1>
+                        </span>
+                    </h4>
+                     
+                    <div style="text-align: center;margin-bottom: 5px">
+                        {%if client=='y'%}
+                            <a href="{{path('certificat_client', { 'id': certificat.entreprise.id })}}" class="btn btn-ems r-ems" style="width: 105px">Factures</a>
+                        {%else%}
+                            <a  href="{{path('certificat_certificat',{ 'periode': certificat.date|date('Y-m')})}}" class="btn btn-ems r-ems" style="width: 105px">
+                                Factures
+                            </a>
+                        {%endif%}
+                        
+                                             
+                    </div>
+                   
+                    
+                    
+                    
+                    
+                    
+                    
+                    <div class="modalframe">
+                        <iframe src="{{path('certificat_pdfShow', { 'id': certificat.id })}}" scrolling="no" frameborder="0" height="1200" width="100%"></iframe>
+                    </div>
+{#                   <object data="nomdupdf.pdf" type="application/pdf" title="cv" width="800" height="885"></object>#}
+                </div> 
+            </div>    
+        </div>
+     </div>
+            
+{% endblock %}

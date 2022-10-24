@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    
+                     <h1>
+                        <span class="mt-4"> 
+                         Factures Dépôts Dans Coffres
+                        </span>
+                         <span style="float: right;margin-right: 18px">
+                                   <b>{% if(periode |striptags|slice(5)|raw==01) %}  
+                                                Janvier 
+                                            {% elseif (periode |striptags|slice(5)|raw==02) %}  
+                                                Février 
+                                            {% elseif (periode |striptags|slice(5)|raw==03) %}  
+                                                Mars  
+                                            {% elseif (periode |striptags|slice(5)|raw==04) %}  
+                                                Avril  
+                                            {% elseif (periode |striptags|slice(5)|raw==05) %}  
+                                                Mai  
+                                            {% elseif (periode |striptags|slice(5)|raw==06) %}  
+                                                Juin  
+                                            {% elseif (periode |striptags|slice(5)|raw==07) %}  
+                                                Juillet  
+                                            {% elseif (periode |striptags|slice(5)|raw==08) %}  
+                                                Août  
+                                            {% elseif (periode |striptags|slice(5)|raw==09) %}  
+                                                Septembre  
+                                            {% elseif (periode |striptags|slice(5)|raw==10) %}  
+                                                Octobre 
+                                            {% elseif (periode |striptags|slice(5)|raw==11) %}  
+                                                Novembre  
+                                            {% elseif (periode |striptags|slice(5)|raw==12) %}  
+                                                Décembre  
+                                        {% endif %}
+                                        {{periode |striptags|slice(0,4)|raw}}</b>
+                               
+                        </span>
+                    </h1>
+                                
+                    
+                    <div style="padding-right: 12px;margin-top: 50px">
+                        <span style="float: right" class="creation-mobile">
+                            <a href="{{ path('certificat_index') }}" class="btn btn-ems" style="width: 95px;margin-right: 5px">Retour</a>
+                              
+                        </span>
+                    </div>  
+                    
+                                
+                    {#<div style="padding-right: 12px;margin-top: 50px">
+                           <span style="float: right;font-weight: bold">
+                             
+                               <span style="color:red;font-weight: bold">Tous les Clients</span>
+                              
+                           </span><br/> 
+                    </div>#}
+                                
+                    <table class="table-responsive table table-hover results table-fixed" >
+                        <thead>
+                            <tr>
+                                <th class="col">Entreprise</th>
+                                 <th class="col">Numéro</th>
+                                 <th class="col" style="text-align: center">Montant&nbsp;TTC (FCFA)</th>
+                                <th class="col">                                       
+                                  Règlement
+                                </th>
+                                <th class="col" style="text-align: right">
+                                        <div style="width: 290px;float: right;">
+                                          
+                                            <a href="{{ path('certificat_index') }}" class="btn btn-ems" style="width: 95px;">Retour</a>
+                                            {#<a href="" class="btn btn-ems" style="width: 95px">Facture</a>#}
+                                        </div>
+                                </th>
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="5"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificat in certificats %}
+                                <tr>
+                                    <td data-label="Entreprise">
+                                        {{certificat.entreprise.nom|capitalize}}
+                                    </td> 
+                                    <td data-label="Numéro">
+                                          {{certificat.numero}}
+                                    </td>
+                                    <td data-label="Montant TTC (FCFA)">
+                                        <div style="text-align: right">
+                                            
+                                             
+                                            {% if certificat.montant|length > 6 %}
+                                                {{ certificat.montant|striptags|slice(0, certificat.montant|length-6)|raw }}
+
+                                                {{ certificat.montant|striptags|slice(certificat.montant|length-6, 3)|raw }}
+
+                                                {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+
+                                            {% elseif(certificat.montant|length > 3) %}
+                                                {{ certificat.montant|striptags|slice(0, certificat.montant|length-3)|raw }}
+
+                                                {{ certificat.montant|striptags|slice(certificat.montant|length-3, 3)|raw }}
+
+                                            {% else %}
+                                                {{ certificat.montant }}
+                                            {% endif %}
+                                            
+                                        </div>
+                                         
+                                    </td>
+                                    <td data-label="Règlement">                                       
+                                        {% if(certificat.paiement=='Non Payée') %}  
+                                            <span style="color: red">{{certificat.paiement}}</span>
+                                        {% else %}
+                                             {{certificat.paiement}}
+                                        {% endif %}
+                                    </td>
+                                    <td  class="action" style="text-align: right"> 
+                                        <a href="{{ path('certificat_show',{'id':certificat.id}) }}" class="btn btn-ems r-ems" style="width: 95px">Facture</a>
+                                    </td>
+                                 </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                                    
+                </div>       
+            </div>             
+        </div>               
+     </div>
+
+
+
+{% endblock %}

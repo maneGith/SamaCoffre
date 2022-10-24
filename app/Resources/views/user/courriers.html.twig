@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    <h1>
+                        <span class="mt-4"> 
+                         Mon Coffre
+                        </span>
+                    </h1>
+                    {% if courriers|length>2 %}
+                        <div>
+                            <input type="text" class="search searchTerm form-control search-list"  style="float: right;margin-right: 15px" placeholder="Filtrez SVP!"> 
+                            <div style="position: relative">
+                                   <i class="fa fa-filter" aria-hidden="true" style="position: absolute;top: 7px;right: 45px;color: #265ead;"></i>
+                                </div>
+                        </div>
+                    {% elseif courriers|length<=0 %}
+{#                        Votre Coffre Est Vide#}
+                    {% endif %}
+                    <table class="table-responsive table table-hover results table-fixed chatbox">
+                        
+                        <tbody>
+                                {% for courrier in courriers %}
+                                    <tr id="cr{{courrier.id}}">
+                                        <td data-label="Document" class="col">
+                                            <span {% if courrier.lue!='oui' %} style="font-weight: bold" {% endif %}>
+                                                {%if courrier.entrepriseservice.service.service=='Documents Personnels'%}
+                                                    {{courrier.nature}}
+                                                {% else %}
+                                                    {{courrier.entrepriseservice.service.service}}
+                                                {% endif%}
+                                                
+                                            </span>
+                                        </td>
+                                        <td data-label="Envoyeur" class="col">
+                                            {{courrier.entrepriseservice.entreprise.nom|upper}}
+                                        </td>
+                                        <td data-label="Date" class="col">{{courrier.date|date('d/m/Y')}}</td>
+                                        <td  class="col action"  style="min-width: 250px">
+                                            <a href="{{ path('courrierentreprise_show', { 'id': courrier.id }) }}" class="btn btn-ems r-ems openDoc" style="width: 95px;">Ouvrir</a>
+                                            <span  
+                                                {% if courrier.lue!='oui' %}
+                                                    class="spantelechargement teleInfo" 
+                                                {% endif %}
+                                                rel="{{courrier.id}}">
+                                                <a href="{{ asset('uploads/documents/' ~ courrier.pathPDF) }}" class="btn btn-ems r-ems notedownload" download="
+                                                   
+                                                    {%if courrier.entrepriseservice.service.service=='Documents Personnels'%}
+                                                        {{courrier.nature}}
+                                                    {% else %}
+                                                        {{courrier.entrepriseservice.service.service}}
+                                                    {% endif%}
+                                                
+                                                   -{{courrier.entrepriseservice.entreprise.nom}}-{{courrier.date|date('d-m-Y')}}" style="width: 105px;">
+                                                    Télécharger
+                                                </a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                        </tbody>
+                        
+                    </table>
+                        
+                        {#<div id="principeImg" style="margin-top: 10px">
+                              <img src="{{ asset('img/image-principe-coffre.png') }}" alt="Girl in a jacket" width="100%" />
+                            </div>#}
+                        
+                        
+                         <img src="{{ asset('img/accueil-coffre.png') }}" alt="icone"  height='550px' width='100%'/>
+
+                </div>
+                    
+            </div>
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

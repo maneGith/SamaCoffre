@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">
+                    
+                       {% if is_granted('ROLE_COFFRE') %}
+                            <h1>
+                                <span class="mt-4"> 
+                                 Boîte d'informations 
+                                </span>
+                            </h1>
+                      {% endif %}
+
+                    
+                    <div id="welcome">
+                        <div class="container msgauth">
+                           {# <p> 
+                               <br/> <br/>  Bienvenue á votre  <b>application de distribution des courriers <br/> 
+                                personnalisés et électroniques d'entreprise  </b> - <a href="">senbpost.sn</a> !
+                            </p> #}
+                           <div id="pubIn">
+                              
+                           </div>
+                            <div id="actionIn">
+                               
+                                    {% if is_granted('ROLE_COFFRE') %}
+                                        {% if informations|length<=0 %}
+                                            Aucune Entreprise ne Vous a ajouté comme Employé.
+                                        {% endif %}
+                               
+                                        
+                                        {% for information in informations %}
+                                           
+{#                                            <div>#}
+                                               {# <span style="font-weight: bold;float: left">
+                                                     Entreprise
+                                                </span>#}
+                                                
+                                               {# <span style="font-weight: bold;color: red;float: right">
+                                                     {{information.entreprise.nom}}
+                                                </span>#}
+{#                                            </div>#}
+                                            <div>
+                                                {% if information.infos|length<=0 %}
+                                                    Aucune Information
+                                                {% endif %}
+                                            </div>
+                                                
+                                            
+                                            <table class="table-responsive table table-hover results table-fixed">
+                                                <tbody>
+                                            {% for infoEntreprise in information.infos %}
+                                                <tr>
+                                                    <td data-label="Information" class="col">
+                                                        {{ infoEntreprise.objet }}  
+                                                    </td>
+                                                    <td data-label="Catégorie" style="text-align:center">
+                                                         {{ infoEntreprise.nature }}
+                                                    </td>
+                                                    <td data-label="Entreprise" style="text-align:center">
+                                                         {{information.entreprise.nom}}
+                                                    </td>
+                                                    <td data-label="Date Envoi" style="text-align:center">
+                                                        {% if infoEntreprise.date %}{{ infoEntreprise.date|date('d/m/Y') }}{% endif %}
+                                                    </td>
+                                                    <td  class="action" style="min-width: 250px">
+                                                        <div>
+                                                            <span style="float:right">
+                                                                <a href="{{ path('infoentreprise_show', { 'id': infoEntreprise.id }) }}" class="btn btn-ems openDoc" style="width: 105px;">Ouvrir</a>
+                                                                
+                                                                <a href="{{ asset('uploads/documents/' ~ infoEntreprise.brochureFilename) }}" class="btn btn-ems r-ems notedownload" download="{{infoEntreprise.nature}}-{{infoEntreprise.entreprise.nom}}-{{infoEntreprise.date|date('d-m-Y')}}" style="width: 105px;">
+                                                                    Télécharger
+                                                                </a>
+                                                            </span><br/>
+                                                        </div>
+                                                    
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                                </tbody>
+                                            </table>
+                                    {% endfor %}
+                                {% elseif not is_granted('ROLE_ADMIN') %}   
+                                     <img src="{{ asset('img/accueil-client.png') }}" alt="icone"  height='550px' width='100%'/>
+                                {% endif %} 
+                                 
+                                
+                               
+                            </div>
+                            {#<div id="principeImg" style="margin-top: 10px">
+                              <img src="{{ asset('img/image-principe-coffre.png') }}" alt="Girl in a jacket" width="100%" />
+                            </div>#}
+                        </div>
+                       
+                        
+                    </div>
+                    
+                    <!-- Modal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                          <div><span class="close" id="close" style="color: red;font-weight: bold">&times;</span></div>
+                            {{ include('user/new.html.twig') }}
+                        </div>               
+                    </div>                 
+                    
+                </div> 
+            </div>
+        </div>
+     </div>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,192 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Tarif
+ *
+ * @ORM\Table(name="tarif")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TarifRepository")
+ */
+class Tarif
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="service", type="string", length=255)
+     */
+    private $service;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=255)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prixunitaire", type="decimal", precision=10,  scale=2)
+     * @Assert\Type(type="float")
+     */
+    private $prixunitaire;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="coutstockage", type="decimal", precision=10,  scale=2)
+     * @Assert\Type(type="float")
+     */
+    private $coutstockage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="couttraitement", type="decimal", precision=10,  scale=2)
+     * @Assert\Type(type="float")
+     */
+    private $couttraitement;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set service
+     *
+     * @param string $service
+     *
+     * @return Tarif
+     */
+    public function setService($service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return string
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Set prixunitaire
+     *
+     * @param string $prixunitaire
+     *
+     * @return Tarif
+     */
+    public function setPrixunitaire($prixunitaire)
+    {
+        $this->prixunitaire = $prixunitaire;
+
+        return $this;
+    }
+
+    /**
+     * Get prixunitaire
+     *
+     * @return string
+     */
+    public function getPrixunitaire()
+    {
+        return $this->prixunitaire;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Tarif
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Set coutstockage
+     *
+     * @param string $coutstockage
+     *
+     * @return Tarif
+     */
+    public function setCoutstockage($coutstockage)
+    {
+        $this->coutstockage = $coutstockage;
+
+        return $this;
+    }
+
+    /**
+     * Get coutstockage
+     *
+     * @return string
+     */
+    public function getCoutstockage()
+    {
+        return $this->coutstockage;
+    }
+
+    /**
+     * Set couttraitement
+     *
+     * @param string $couttraitement
+     *
+     * @return Tarif
+     */
+    public function setCouttraitement($couttraitement)
+    {
+        $this->couttraitement = $couttraitement;
+
+        return $this;
+    }
+
+    /**
+     * Get couttraitement
+     *
+     * @return string
+     */
+    public function getCouttraitement()
+    {
+        return $this->couttraitement;
+    }
+}

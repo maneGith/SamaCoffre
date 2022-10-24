@@ -1,0 +1,305 @@
+
+<div class="preview-bar bg-white fixed-top py-2 border-bottom-primary">
+    <div>
+            <ul style="padding:0;margin:0;list-style-type:none;">
+                <li style="float:left;width: 20%;padding-left: 5px"> 
+                    <div style="position: absolute;left: 1px;top: -1px;padding-top: 2px;padding-left: 42px">
+{#                        <b><span style="color: #66CDAA;font-size: 20px">sama</span><span style="color: #265ead;font-size: 20px">COFFRE</span></b>#}
+                           
+                               <img src="{{ asset('img/logo-samacoffre.png') }}" alt="icone" width="65px" height="50px" />
+                           
+                    </div>
+                    
+                   {% if(is_granted('ROLE_USER')) %} 
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom" style="width: 15px">
+                            
+                             <div  style="position: absolute;left:  2px;bottom: -20px">
+                                 <i class="fa fa-bars fa-2x" id="navbarMenu" class="navbar-toggler-icon navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"></i>
+                             </div>
+                            
+                            <div class="collapse navbar-collapse bg-light border-right" id="navbarSupportedContent" style="position: absolute;top: 46px;z-index: 2000;width: 18rem;border: 1px solid #337ab7;left: -4px">
+                                <ul class="list-group list-group-flush navbar-nav ml-auto mt-2 mt-lg-0">
+                                   
+                                    {% if(is_granted('ROLE_COFFRE')) %}
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('homepage')}}" style="">
+                                                <img src="{{ asset('img/icone-coffre.png') }}" alt="icone" width="25px"/>
+                                                 Mon Coffre
+                                            </a>
+                                        </li> 
+                                    {% else %}  
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('homepage')}}" style="">
+                                                <img src="{{ asset('img/icone-accueil.png') }}" alt="icone" width="25px"/>
+                                                Accueil
+                                            </a>
+                                        </li> 
+                                    {% endif %}  
+                                    
+                                   
+                                    
+                                    {% if(is_granted('ROLE_ADMIN')) %}
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('tarif_index')}}">
+                                                <img src="{{ asset('img/icone-tarif.png') }}" alt="icone" width="25px"/>
+                                                Tarifs
+                                            </a>
+                                        </li> 
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('adminentreprise_index')}}">
+                                               <img src="{{ asset('img/icone-entreprise.png') }}" alt="icone" width="25px"/>
+                                                Clients
+                                            </a>
+                                        </li> 
+                                        
+                                        
+                                         <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="">
+                                               <img src="{{ asset('img/icone-paiement.png') }}" alt="icone" width="25px"/>
+                                                Paiements
+                                            </a>
+                                        </li> 
+                                    {% endif %} 
+                                    {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                        
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('agence_index')}}">
+                                                 <img src="{{ asset('img/icone-guichet.png') }}" alt="icone" width="25px"/>
+                                                Guichets
+                                            </a>
+                                        </li> 
+                                        
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('entrepriseservice_entreprise') }}">
+                                                 <img src="{{ asset('img/icone-service.png') }}" alt="icone" width="25px"/>
+                                                Services
+                                            </a>
+                                        </li> 
+                                        
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('infoentreprise_index')}}">
+                                                 <img src="{{ asset('img/icone-info.png') }}" alt="icone" width="25px"/>
+                                                Informations
+                                            </a>
+                                        </li> 
+                                    {% endif %}
+                                    {% if(is_granted('ROLE_GUICHET')) %}
+                                         <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('entrepriseservice_entreprise') }}">
+                                                <img src="{{ asset('img/icone-service.png') }}" alt="icone" width="25px"/>
+                                                Services
+                                            </a>
+                                        </li> 
+                                    {% endif %}  
+                                    
+                                     {% if(is_granted('ROLE_COFFRE')) %}
+                                         <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('user_boite')}}">
+                                                <img src="{{ asset('img/icone-info.png') }}" alt="icone" width="25px"/>
+                                                Informations
+                                            </a>
+                                        </li> 
+                                    {% endif %}     
+                                    {#<li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                        <a class="nav-link" href="{{path('user_show')}}">Compte</a>
+                                    </li>       
+                                    <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                        <a class="nav-link" href="{{path('logout')}}">Déconnexion</a>
+                                    </li>       #}
+                                </ul>
+                            </div>
+                        </nav>
+                                    
+                                    
+                        <div style="position: absolute;right: 60px;top: -2px">
+                            
+                            Bienvenue
+                            
+                          
+                        </div>
+                            
+                    {% endif %}
+                    
+                </li>
+                <li style="float:left;width: 80%">
+
+                    
+
+                    
+                    
+                     
+                      
+                    {# {% if( not is_granted('ROLE_USER')) %}
+                             <span style='float: right;margin-top: -6px;margin-right: -22px'>
+                                <img src="{{ asset('img/partenaires/logo-ems.jpg') }}" width="80px" alt>
+                             </span>
+                             <span style='float: right;margin-top: -6px;margin-right: 10px'>
+                                <img src="{{ asset('img/partenaires/logo-poste.jpg') }}" width="40px" height="30px" alt>
+                             </span>
+                     {% endif %}#}
+                     
+                     
+                    {% if( is_granted('ROLE_USER')) %} 
+                        <div  style="position: absolute;right: 1px;top: 2px">
+                                <img src="{{ asset('img/icone-user-profil.png') }}" id="ProfilUser"  class="ProfilUser" style="margin-bottom: -18px;" />
+                                <div  class="bg-light border-right" id="SupportedContentProfil" style="display: none;position: absolute;top: 52px;z-index: 2000;width: 18rem;border: 1px solid #337ab7;right: 3px">
+                                    
+                                    <div style="text-align: center;padding-top: 5px">
+                                         <img src="{{ asset('img/icone-user-profil.png') }}"/>
+                                    </div>
+                                    <div style="text-align: center;line-height: 14px">
+                                        {# Profil#}
+                                        {% if(is_granted('ROLE_ADMIN')) %} 
+                                            <span style="font-size: 12px;color: red;font-weight: bold;">
+                                                 Administrateur
+                                            </span>        
+                                        {% elseif is_granted('ROLE_ENTREPRISE') %} 
+                                            <span style="font-size: 12px;color: red;font-weight: bold;">
+                                                 Client
+                                            </span>     
+                                        {% elseif is_granted('ROLE_GUICHET') %} 
+                                             <span style="font-size: 12px;color: red;font-weight: bold;">
+                                                 GuichetCoffre
+                                            </span>     
+                                        {% elseif is_granted('ROLE_COFFRE') %}   
+                                             <span style="font-size: 12px;color: red;font-weight: bold;">
+                                                 Coffre
+                                            </span>     
+                                        {% endif %} 
+                                        
+                                         <br/>
+                                         
+                                       {# nom#}
+                                       {% if(is_granted('ROLE_ADMIN')) %} 
+                                            <span style="font-size: 12px;color: black;font-weight: bold;">
+                                                     ADMIN
+                                            </span>
+                                        {% else %} 
+                                            <span style="font-size: 12px;color: black;font-weight: bold;">
+                                                {{user.prenom|capitalize}}
+                                            </span>
+                                            <span style="font-size: 12px;color: black;font-weight: bold;">
+                                               {% if(is_granted('ROLE_ENTREPRISE')) %} 
+                                                   {{user.nom|upper}}
+                                               {% else %} 
+                                                    {{user.nom|upper}}
+                                               {% endif %}  
+                                           </span>
+                                        {% endif %}  
+                                        
+                                        <br/>
+                                       
+                                        <span style="font-size: 12px;color: #495057;font-weight: bold;">
+                                                {{user.email}}
+                                        </span>     
+                                     
+                                         
+                                    </div>
+                                    {% if(is_granted('ROLE_GUICHET')) %}
+                                     <div style="padding: 5px;line-height: 15px;text-align: center">
+                                          <span style="font-size: 15px;font-weight: bold;color: #495057;">
+                                         {{ render(controller(
+                                            'AppBundle\\Controller\\GuichetController::guichetentrepriseAction'
+                                        ))}} 
+                                         </span>
+                                     
+                                    </div>
+                                    {% endif %} 
+                                        
+                                    
+                                    <ul class="list-group list-group-flush navbar-nav ml-auto mt-2 mt-lg-0">
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            
+                                            {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                                <a class="nav-link" href="{{path('adminentreprise_entreprise')}}" style="color: #495057;">
+                                                    <img src="{{ asset('img/icone-compte.png') }}" alt="icone" width="25px"/>
+                                                    Mon Compte
+                                                </a>
+                                            {% else %}
+                                                <a class="nav-link" href="{{path('user_show')}}" style="color: #495057;">
+                                                    <img src="{{ asset('img/icone-compte.png') }}" alt="icone" width="25px"/>
+                                                    Mon compte
+                                                </a>
+                                            {% endif %} 
+                                           
+                                                
+                                        </li>       
+                                        <li class="nav-item list-group-item list-group-item-action bg-light lien-menu">
+                                            <a class="nav-link" href="{{path('logout')}}" style="color: #495057;">
+                                                <img src="{{ asset('img/icone-deconnexion.png') }}" alt="icone" width="25px"/> 
+                                                Déconnexion
+                                            </a>
+                                        </li>       
+                                    </ul>
+                                </div>
+                        </div>
+                    {% endif %}
+                     
+                   
+
+                </li>
+            </ul> </div>      
+                   
+               
+                {% if user is defined %}
+                    {% if (is_granted('ROLE_COFFRE')) %}
+                        <div style="position: absolute;right:  130px;top: 24px">
+                            {{ render(controller(
+                                    'AppBundle\\Controller\\UserController::nbLettreAction'
+                            ))}} 
+                        </div> 
+                    {% endif %}
+                {% endif %}
+                    
+               
+                {% if(accueil is defined) %}
+                    {% if(is_granted('ROLE_ENTREPRISE') or is_granted('ROLE_GUICHET')) %}
+                       <div style="position: absolute;right:  130px;top: 24px">
+                            <span style="float:right">
+                                <a href="#" class="myBtn showhideCoffre">
+                                    {#<i class="fa fa-user" aria-hidden="true"></i>#}
+                                     <img src="{{ asset('img/icone-coffre.png') }}" alt="icone" width="25px"/>
+                                </a> 
+                                <div class="hideCoffre" style="position: absolute;width: 70px;top: 30px;padding-left: 2px;line-height: 10px;background:   gray;z-index: 200;box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">
+                                    <span style="color: white;font-size: 11px;font-weight: bold">Créer Coffre</span>
+                                </div>
+                                &nbsp;
+                                
+                                <a href="{{path('guide_client')}}" class="showhideGuide">
+                                    <img src="{{ asset('img/icone-aide.png') }}" alt="icone" width="25px"/>
+                                </a>
+                                <div class="hideGuide" style="position: absolute;width: 70px;top: 30px;right: -45px;padding-left: 2px;line-height: 10px;background: gray;z-index: 200;box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">
+                                    <span style="color: white;font-size: 11px;font-weight: bold">Guide Client</span>
+                                </div>
+                                 
+                            </span>
+                            <div class="border border-success" id="success-user" style="display: none;z-index: 2000;margin-top: 10px;border-radius: 5px;text-align: center;vertical-align: middle;padding: 2px;font-size: 15px;position: absolute;right: -50px;top:20px;width: 300px;background: #FFF">
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                          
+                {% if( not is_granted('ROLE_USER')) %}
+                    {% if( conditions is not defined) %}
+                    <div style="position: absolute;right:  10px;top: 30px;font-size: 14px;line-height: 1.4286;">
+{#                        <a href="{{path('tarif_client')}}" style="text-decoration: none;color: #0078b2;;">Nos tarifs</a> |#}
+                        <a href="{{path('condition_utilisation')}}" style="text-decoration: none;color: #265ead;">
+                           Conditions Générales
+                        </a>  
+                    </div> 
+                    {%else%}
+                    <div style="position: absolute;right:  42px;top: 15px;line-height: 1.4286;">
+                        
+                        <a href="{% if(client!='cgUv') %}  
+                          {{path('login')}}
+                        {% else %}
+                             {{path('info_client')}}
+                        {% endif %}" class="btn  btn-ems">
+                                 Retour
+                        </a>
+                                 
+                    </div> 
+                            
+                    {% endif %} 
+                {% endif %} 
+</div>

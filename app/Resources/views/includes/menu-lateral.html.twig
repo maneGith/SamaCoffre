@@ -1,0 +1,70 @@
+<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="list-group list-group-flush">
+        {% if(is_granted('ROLE_COFFRE')) %}
+            <a href="{{path('homepage')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+               <img src="{{ asset('img/icone-coffre.png') }}" alt="icone" width="25px"/>
+               Mon Coffre
+            </a> 
+        {% else %}  
+            <a href="{{path('homepage')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+                <img src="{{ asset('img/icone-accueil.png') }}" alt="icone" width="25px"/>
+                Accueil
+            </a> 
+        {% endif %}  
+         
+        {% if(is_granted('ROLE_ADMIN')) %}
+            
+            <a href="{{path('tarif_index')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+                <img src="{{ asset('img/icone-tarif.png') }}" alt="icone" width="25px"/>
+                Tarifs
+            </a>
+            
+            <a href="{{path('adminentreprise_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">
+                  <img src="{{ asset('img/icone-entreprise.png') }}" alt="icone" width="25px"/>
+                Clients
+            </a>
+                
+           <a href="{{path('certificat_reglements')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+                  <img src="{{ asset('img/icone-paiement.png') }}" alt="icone" width="25px"/>
+                Paiements
+            </a>
+                
+           
+                
+        {% endif %}  
+        
+        {% if(is_granted('ROLE_ENTREPRISE')) %}
+            <a href="{{path('entrepriseservice_entreprise') }}" class="list-group-item list-group-item-action bg-light lien-menu">
+                <img src="{{ asset('img/icone-service.png') }}" alt="icone" width="25px"/>
+                Services
+            </a> 
+                
+            <a href="{{path('infoentreprise_index')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+                <img src="{{ asset('img/icone-info.png') }}" alt="icone" width="25px"/>
+                Informations
+            </a> 
+                
+            <a href="{{path('agence_index') }}" class="list-group-item list-group-item-action bg-light lien-menu">
+                 <img src="{{ asset('img/icone-guichet.png') }}" alt="icone" width="25px"/>
+                Guichets
+            </a>
+        {% endif %}  
+        
+        {% if(is_granted('ROLE_GUICHET')) %}
+            <a href="{{path('entrepriseservice_entreprise') }}" class="list-group-item list-group-item-action bg-light lien-menu">
+                 <img src="{{ asset('img/icone-service.png') }}" alt="icone" width="25px"/>
+                Services
+            </a>
+        {% endif %}  
+         
+        {% if(is_granted('ROLE_COFFRE')) %}
+            <a href="{{path('user_boite')}}" class="list-group-item list-group-item-action bg-light lien-menu">
+                
+                 <img src="{{ asset('img/icone-info.png') }}" alt="icone" width="25px"/>
+               Informations
+            </a>
+        {% endif %}  
+        
+        
+    </div>   
+</div> 

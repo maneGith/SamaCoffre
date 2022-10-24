@@ -1,0 +1,195 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    <h1>
+                        <span class="mt-4"> 
+                             Coffres Pour {{entrepriseservice.service.service}}
+                        </span>
+                    </h1>
+                        
+                    <div style="height: 40px;">
+                        <span style="float: right;margin-bottom: 5px">
+                            <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                   
+                                      <a href="#" class="myBtn btn btn-ems r-ems" style="width: 105px">Ajout</a>
+                                   
+                                </li>
+                                <li style="margin-left:2px;float:left;" class="creation-mobile">
+{#                                    <a href="#" class="myBtn btn btn-ems r-ems">Accès</a>#}
+                                    <a href="{{path('entrepriseservice_entreprise') }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>
+                                </li>
+                            </ul>
+                        </span>  
+                        <span style="float:right;">
+                             <form  action="{{path('accces_search')}}" class="example">
+                                <input type="hidden" name="service"   class="form-control" value="{{entrepriseservice.id}}"/>
+                                <input type="text" name="reference" class="search searchTerm form-control" placeholder="{{entrepriseservice.service.reference}}..." style="height: 30px">
+                                <div style="position: relative">
+                                   <i class="fa fa-filter" aria-hidden="true" style="position: absolute;top: 7px;right: 45px;color: #265ead;"></i>
+                                </div>
+                                <button type="submit" style="background-color: #265ead;"><i class="fa fa-search"></i></button>
+                             </form>
+                        </span>
+                    </div>
+                        
+                    {% set docs = entrepriseservice.service.service|split(' ') %}
+
+                    <table class="table-responsive table table-hover results table-fixed">
+                        <thead>
+                            <tr>
+                                <th class="col">
+                                    {%if entrepriseservice.service.service=='Documents Salarié' %}
+                                       Salarié 
+                                    {%else%}
+                                        Client
+                                    {%endif%}
+                                    
+                                </th>
+                                <th class="col">{{entrepriseservice.service.reference}}</th>
+                                  <th class="col" style="text-align:center">Email</th>
+                                
+                                 
+                                <th class="col">
+                                    <div style="width: 220px;float: right;">
+                                       
+                                               <a href="#" class="myBtn btn btn-ems r-ems" style="width: 105px">Coffre</a>     
+                                       
+                                        <a href="{{path('entrepriseservice_entreprise') }}" class="btn btn-ems r-ems" style="width: 105px">Services</a>
+                                    </div>
+                                </th>
+                                 
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for accesReferenceService in accesReferenceServices %}
+                            <tr>
+                                
+                               <td data-label="
+                                   {%if entrepriseservice.service.service=='Documents Salarié' %}
+                                       Salarié 
+                                    {%else%}
+                                        Client
+                                    {%endif%}
+                                   ">
+                                    {{ accesReferenceService.usager.prenom }}
+                                    {{ accesReferenceService.usager.nom }}
+                                </td>
+                                
+                                <td data-label="{{entrepriseservice.service.reference}}">
+                                     {{ accesReferenceService.reference }}
+                                </td>
+                                
+                                <td data-label="Email">
+                                    {{ accesReferenceService.usager.email }}
+                                </td>
+                               
+                                <td class="action">
+                                    <a href="{{path('accesreferenceservice_show', { 'id': accesReferenceService.id })}}" class="btn btn-ems" style="width: 105px">Détails</a>
+                                </td>
+                                
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                        
+{#                      Autorisation Acces  #}
+                    <div id="myModal" class="modal">
+                        <div class="modal-content" style="max-width: 21.7rem">
+                            <div><span class="close" id="close" style="color:red;font-weight: bold">
+                              &times;</span>
+                            </div>
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Ajout Coffre</h1>
+                            </div>
+                            <div id="loadingsearch" style="text-align: right;display: none">
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            </div>
+                            
+                             {{ form_start(form,{'attr' : {'class':'form_acces', 'action':path('accesreferenceservice_index', { 'id': entrepriseservice.id })}}) }}
+                                <input type="hidden" name="service"   class="form-control" value="{{entrepriseservice.id}}"/>
+                                
+                                <div class="form-group autocomplete">
+                                    <b>Email</b>
+                                    <input type="email" id="emailCoffreReference" name="email"   autocomplete="off" class="form-control email-input ui-autocomplete-input" placeholder="Email du Coffre" required autofocus />
+                                    <ul id="errorinvalid" style="display: none">
+                                        <li>
+                                             Cet adresse e-mail est invalide.
+                                        </li>
+                                    </ul>
+                                    
+                                    <ul id="errorfound" style="display: none">
+                                        <li>
+                                             Aucun Coffre n'est lié à cet email.
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="form-group">
+                                     <b>{{entrepriseservice.service.reference}}</b>
+                                    {{ form_widget(form.reference,{'attr':{'class':'form-control reference', 'placeholder':entrepriseservice.service.reference ~ '(1)'}}) }}
+                                    {{ form_errors(form.reference) }}
+                                    
+                                    <ul id="errorRefNull" style="display: none">
+                                        <li>
+                                            {{entrepriseservice.service.reference}} est obligatoire!
+                                        </li>
+                                    </ul>
+                                    
+                                    <ul id="errorRefAttr" style="display: none">
+                                        <li>
+                                          {{entrepriseservice.service.reference}} déjà liée à un Coffre pour le Service.
+                                        </li>
+                                    </ul>
+                                </div>
+                                    
+        <div style="line-height: 15px;padding: 0;text-align: justify;margin-bottom: 15px;">
+             <b>NB :</b> 
+             <span style="font-size: 11px;color: #777;">
+               (1) Signifie que vous nommiez les fichiers {{entrepriseservice.service.service}} par <b>{{entrepriseservice.service.reference}}</b> pour être déposés dans ce Coffre.
+             </span>
+        </div>
+                                
+                                <div style="height: 30px;margin-bottom: 5px">
+                                 
+                                        <input type="submit" value="Ajouter" class="btn  btn-ems submit-button" style="width: 100%"/>
+                                   
+                                </div>
+                            
+                            {{ form_end(form) }}
+                            
+                            
+                            
+                        </div>    
+                    </div> 
+                            
+                    
+
+                </div>
+                    
+            </div>
+                
+            </div>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

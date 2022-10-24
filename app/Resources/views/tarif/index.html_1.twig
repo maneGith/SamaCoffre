@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tarifs list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Service</th>
+                <th>Prixunitaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tarif in tarifs %}
+            <tr>
+                <td><a href="{{ path('tarif_show', { 'id': tarif.id }) }}">{{ tarif.id }}</a></td>
+                <td>{{ tarif.service }}</td>
+                <td>{{ tarif.prixunitaire }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('tarif_show', { 'id': tarif.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('tarif_edit', { 'id': tarif.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tarif_new') }}">Create a new tarif</a>
+        </li>
+    </ul>
+{% endblock %}

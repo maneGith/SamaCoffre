@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                
+                <div class="content container">       
+                    <h1>
+                        <span class="mt-4"> 
+                        Liste des Factures Payées
+                        </span>
+                    </h1>
+                    
+                    
+                    <table class="table-responsive table table-hover results table-fixed" >
+                        <thead>
+                            <tr>
+                                
+                                <th class="col">Numéro</th>
+                                 <th class="col">Client</th>
+                                <th class="col" style="text-align: center">Montant&nbsp;TTC (FCFA)</th>
+                                <th class="col">                                       
+                                  Date Paiement
+                                </th>
+                                <th class="col" style="text-align: right">
+                                        <div style="width: 290px;float: right;">                                           
+                                            <a href="#" class="btn btn-ems myBtn" style="width: 95px">Régler</a>
+                                        </div>
+                                </th>
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="4"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>              
+                </div> 
+                
+                
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content" style="max-width: 21.7rem">
+                        
+                        
+                         <div id="ModalRechercheFacture" style="">
+                            <div><span class="close" id="close" style="color: red;font-weight: bold">
+                              &times;</span>
+                            </div>
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Règlement</h1>
+                            </div>
+                            <div style="text-align: center" id="ModalRechercheTitle">    
+                            </div>
+                            <form action="{{path('certificat_searchfacture')}}" method="post" class="form_SearchFacture">
+                                <div class="form-group">
+                                     <input type="text" value="" class="form-control float-price" name="numero" id="recherchenumfacture" placeholder="Numéro Facture"/>
+                                </div>
+                                
+
+                                <div style="height: 30px">
+                                    <span style="float: right">
+                                        <input type="submit" value="Suivant" class="btn  btn-ems" />
+                                    </span>
+                                </div>
+
+                            </form>
+                        </div>     
+                            
+                    </div>             
+                </div>     
+                            
+            </div>             
+        </div>               
+     </div>
+
+
+
+{% endblock %}
+

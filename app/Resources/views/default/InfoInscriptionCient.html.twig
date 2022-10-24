@@ -1,0 +1,254 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+   <div id="cgDiv">
+    <div id="container">
+            <div style="background: #fff;padding: 5px">
+            
+            <div id="next" style="color: #5f6368;font-size: 15px;line-height: 1.4286;">
+                
+                           
+                <div style="text-align: left">
+                    <h1><b>Je suis Entreprise, J'envoie</b></h1>
+                </div>
+                
+                <ul style="list-style-type: none">
+                    <li>
+                        <h5><b>I. à mes Employés :</b></h5>
+                        <p>
+                           1. Bulletins de Paie,<br/>
+                           2. Decisions ,<br/>
+                           3. Informations sur : <br/>&nbsp;&nbsp;&nbsp;&nbsp;Circulaires, Notes de Service, Faire-part ...
+                        </p>
+                    </li>
+                     <li>
+                        <h5><b>II. à mes Clients :</b></h5>
+                        <p>
+                           1. Contrats,<br/>
+                           2. Factures.
+                        </p>
+                     </li>
+                </ul>
+                
+                <div style="text-align: right">
+                    <span>
+                        <a href="#" class="btn  btn-ems myBtn creerEntreprise">
+                          Je m'inscris
+                        </a>
+                    </span>
+                </div>
+                <div style="text-align: left">
+                      <h1><b>Je suis Banque, J'envoie</b></h1>
+                </div>
+                
+                <ul style="list-style-type: none">
+                    <li>
+                        <h5><b>à mes Clients :</b></h5>   
+                        <p>
+                          1. Relevés de Compte, <br/>
+                          2. Avis.
+                        </p>
+                    </li>
+                </ul>
+                  
+                <div style="text-align: right">
+                    <span>
+                        <a href="#" class="btn  btn-ems myBtn creerEntreprise">
+                           Je m'inscris
+                        </a>
+                    </span>
+                </div>
+                 <div style="border-bottom: solid 1px #d2d2d2;margin-top: 5px"></div>
+                <p>
+                     La Plateforme  de Distribution de Documents Electroniques
+                     <b>
+                       <span style="color: #66CDAA">sama</span><span style="color: #265ead">COFFRE</span>
+                    </b>Vous <b>
+                    simplifie les échanges de Documents et d'Informations avec vos Clents et Employés en temps réel
+                    </b>.<br/>
+                    Votre Inscription vous donne <b>un Essai Gratuit de 30 jours</b> pour vous permettre de vous familiariser avec la Plateforme comme mentionné dans les <a href="{{path('condition_utilisation',{'client':'cgUv'})}}" style="color: #265ead;text-decoration: none">Conditions Générales</a>. 
+                    
+                 </p>
+                
+                
+                
+            </div>
+                           
+                <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                    <div class="modal-content" style="max-width: 21.7rem; color: #5f6368;font-size: 14px;line-height: 1.4286;">
+                        <div style="text-align: center;display: none" id="ModalNewEntreprise">
+                            <div><span class="close" id="close" style="color: red;font-weight: bold">
+                              &times;</span>
+                            </div>
+
+                           
+                             <br/>
+                             <div style="text-align: center">
+                                        <span style="color: #265ead">
+                                            <b>INSCRIPTION ENTREPRISE</b></span>
+                            </div>
+
+                            <div id="loadingsearch" style="text-align: right;display: none">
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                                <img src="{{ asset('img/ajax-loader-search.gif') }}" />
+                            </div>
+
+                            <form class="form_entreprise">
+                                <br/>
+                                <div class="form-group">
+
+
+                                    <input type="text" name="nom" id="appbundle_utilisateur_nom" class="form-control ltc-nom nom" placeholder="Nom ou Raison sociale" required autofocus/>
+                                    <div id="errornom" style="display: none">
+                                        Le nom de l'entrepreise est obligatoire
+                                    </div>
+                                    <div class="errorEntreprise" style="display: none">
+                                        Ce nom d'Entrepreise est déjà utilisé.
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                      <input type="text" name="adresse" id="adresse" class="form-control ltc-nom" placeholder="Adresse" required autofocus/>
+                                     <div id="erroradresse" style="display: none;text-align: left">
+                                        L'adresse de l'entrepreise est obligatoire
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="background-color:  #fff;text-align: left">
+                                    
+                                    <div style="line-height: 15px;padding: 0;text-align: justify;font-size: 11px;text-align: center">
+                                        <span style="font-size: 14px;font-weight: bold">
+                                           Catégorie
+                                        </span>
+                                    </div>
+                                    <div class="radio">
+                                        <input  name="categorie"  id="Banque" required="required" value="Banque" type="radio"/>
+                                        <label class="required" style="font-size: 1rem;color: #495057;" for="Banque">
+                                            Banque   
+                                        </label>
+                                        <span style="float: right">
+                                             <input  name="categorie" id="Entreprise" required="required" value="Entreprise" type="radio"/>
+                                        <label class="required" style="font-size: 1rem;color: #495057;" for="Entreprise">
+                                            Entreprise
+                                        </label>
+                                        </span>
+
+                                       
+
+                                       {# <input  name="categorie" id="Autre" required="required" value="Autre" type="radio"/>
+                                        <label class="required" style="font-size: 1rem;color: #495057;" for="Autre">
+                                            Autre
+                                        </label>#}
+                                     </div>
+                                </div>
+
+                            <fieldset>
+                                <legend align="center">L'administrateur du compte</legend> 
+                                <div class="form-group">
+                                    <input type="email" name="email" id="appbundle_user_email" class="form-control email-input" placeholder="Email" required autofocus/>
+                                    <div id="erroremail" style="display: none;text-align: left">
+                                            Cette adresse e-mail est déjà utilisée.
+                                    </div>
+                                    <div id="erroremailValidation" style="display: none;text-align: left">
+                                           Cette adresse e-mail est invalide.
+                                    </div>
+                                    <div id="erroremailExist" style="display: none;text-align: left">
+                                           Cette adresse e-mail ne repond pas.
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="telephone" id="appbundle_utilisateur_telephone" class="form-control" placeholder="Téléphone" required autofocus/>
+                                    <div id="errorphone" style="display: none;text-align: left">                        
+                                            Le numéro téléphone doit contenir au moins <b>cinq chiffres</b>.
+                                    </div>
+                                 </div> 
+
+                                <div class="form-group">
+                                        <input type="password" name="firstPWD" id="firstPWD" size="20" class="form-control crf-pwd" placeholder="Mot de passe" required autofocus/>
+                                        <div id="errorfirstPWD" style="display: none;text-align: left">
+                                             Le mot de passe doit contenir au moins <b>six caractères</b> dont au moins <b>un chiffre</b>
+                                                et <b>une lettre majuscule</b>.
+                                        </div>
+
+                                </div>
+                                <div class="form-group">
+                                        <input type="password" name="secondPWD" id="secondPWD" size="20" class="form-control crf-pwd" placeholder="Confirmation" disabled="true"/>
+                                        <div id="errorsecondPWD" style="display: none;text-align: left">
+                                               Ce Mot de passe doit être identique au premier.
+                                        </div>
+                                        <div style="margin-top:7px;text-align: left">
+                                             <input type="checkbox"  id="affichePWDCoffre"/>
+                                             <span style="font-size: 14px;">Afficher les mots de passe</span>
+                                        </div>
+                                </div>
+                            </fieldset> 
+
+                            <div style="line-height: 15px;padding: 0;text-align: justify;margin-bottom: 15px;color: #777;font-size: 11px;">
+                               {# <input type="checkbox" required autofocus />#}
+                                <span style="font-size: 14px;">
+                                   En Inscrivant votre Entreprise, vous acceptez nos
+                                    <a href="{{path('condition_utilisation',{'client':'cgUv'})}}" style="color: #265ead;text-decoration: none">
+                                    Conditions Générales</a>.
+                                </span>
+                            </div>
+
+
+
+                                <div style="height: 30px">
+                                    <span style="float: right">
+                                        <a href=""  class="btn btn-ems">Annuler</a>
+                                        <input type="submit" value="Inscrire" class="btn  btn-ems submit-button" />
+                                    </span>
+                                </div>
+
+                            </form>
+                        </div>
+                                    
+                        {#<div style="text-align: center;display: none" id="ModalCreatedEntreprise">
+
+                             <div>
+                                 <p>Vous venez d'inscrire votre 
+                                     <span style="color: #155724;font-weight: bold">
+                                            Entreprise avec Succès
+                                     </span>. 
+
+                                     Profotez-vous en demandant  à tous vos ayant droits de Couuriers Electoniques et d'Informations d'Entreprise  de creer leurs Coffres pour recevoir en temps réel leurs Courriers et Informations. Merci!</p>
+                                <div>
+                                    <span class="close">
+                                        <a href="#" class="btn btn-ems">OK</a>
+                                    </span>
+                                </div>
+                             </div> 
+                        </div>#}
+                                    
+                                    
+                                                     
+            <div style="text-align: justify;display: none" id="ModalCreatedEntreprise">
+                 <div>
+                     <div> Bonjour! Vous venez d'inscrire votre  Entreprise  <sapn id="nomEntreprise" style="color: #155724;font-weight: bold"></sapn> avec succès.</div>
+                     
+                     <div><b>Email : </b><sapn id="emailEntreprise" style="color: #155724;font-weight: bold"></sapn></div>
+                         Profitez-vous en! Envoyez les Documents Electroniques dans les Coffres de vos Clients ou Employés! Merci!
+                    <div>
+                        <span class="close">
+                            <a href="#" class="btn btn-ems">OK</a>
+                        </span>
+                    </div>
+                 </div>
+            </div>
+                                    
+                    </div>               
+                </div>
+
+        </div>
+    </div>
+</div>
+                    
+{% endblock %}
+
+
+  

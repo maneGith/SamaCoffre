@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">
+                    <h4>
+                        <span class="mt-4"> 
+                         Information Entreprise
+                        </span>
+                        - envoyé le :  
+                    
+                    <span style="font-weight: bold">
+                       {% if infoEntreprise.date %}{{ infoEntreprise.date|date('d-m-Y') }}{% endif %}
+                    </span>
+                    </h4>
+                  
+                    <span style="float: right">
+                        
+                        {% if(is_granted('ROLE_COFFRE')) %}
+                              <a href="{{path('homepage')}}" class="btn btn-ems r-ems" style="width: 105px">
+                                  Informations</a>
+                        {% else %}
+                            <a  href="{{path('infoentreprise_index')}}" class="btn btn-ems r-ems" style="width: 105px">
+                                Informations
+                            </a>
+                        {% endif %}
+                        
+                        
+                    </span>
+                        
+
+                        
+                    <br/>
+                    <div class="modalframe">
+                        <iframe src="{{ asset('uploads/documents/' ~ infoEntreprise.brochureFilename) }}"  scrolling="no" frameborder="0" height="1250px" width="100%"></iframe>
+                    </div>
+                </div> 
+            </div>    
+        </div>
+     </div>
+            
+{% endblock %}

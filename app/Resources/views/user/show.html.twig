@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content  container">
+                    <h1>
+                         <span class="mt-4"> 
+                            Utilisateur
+                         </span>
+                    </h1>
+                    <div  class="width-input-field">
+                        
+                        <table class="table table-bodered table-responsive show-thead" style="overflow-y:hidden">
+                            <tbody>
+                                <tr>
+                                    <th class="col">E-mail</th>
+                                    <td data-label="E-mail">{{ user.email }}</td>
+                                </tr>
+                                 <tr>
+                                    <th class="col">Profil</th>
+                                    <td data-label="Profil" class="col">{% if user.roles %}{{ user.roles[0] }}{% endif %}</td>
+                                </tr>
+                            {% if(is_granted('ROLE_COFFRE')) %}
+                                <tr>
+                                    <th class="col">Nom</th>
+                                    <td data-label="Nom">{{ user.nom }}</td>
+                                </tr>
+                                
+                                {% if(user.civilite=='Mr(Mme)') %}
+                                    <tr>
+                                        <th class="col">Prénom</th>
+                                        <td data-label="Prénom" class="col">{{ user.prenom }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <th class="col">Téléphone</th>
+                                    <td data-label="Téléphone" class="col">{{ user.telephone }}</td>
+                                </tr>
+                            {% endif %}
+                                     
+                            </tbody>
+                        </table>  
+                        <div style="text-align: right">
+                                {% if(is_granted('ROLE_COFFRE')) %}
+                                    <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn  btn-ems">Civilité</a>
+                                {% endif %}
+                                <a href="{{ path('password') }}" class="btn  btn-ems">Changer Mot de Passe</a>
+                        </div>   
+                        
+                       
+                    </div>
+                </div> 
+            </div>
+        </div>
+     </div>
+{% endblock %}

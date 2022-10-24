@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4">
+                          Les Tarifs des Services
+                        </span>
+                    </h1>
+                    
+                    <div style="padding-right: 10px">
+                        <span style="float: right">
+                           <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                      <a href="" class="btn btn-ems CreerTarif" style="width: 95px">Créer</a>
+                                </li>
+                          </ul>
+                       </span>
+                    </div>
+                    
+                     <table class="table-responsive table table-hover results table-fixed">
+                        <thead>
+                            <tr>
+                                
+                                <th>
+                                    Service
+                                </th>
+                                 <th>
+                                    Référence
+                                </th>
+                                
+                                <th class="col" style="text-align: center">
+                                    Prix&nbsp;Unitaire<br/>(FCFA)
+                                   
+                                </th>
+                                
+                                <th class="col" style="text-align: center">
+                                    Coût&nbsp;de&nbsp;Stockage <br/>(FCFA)
+                                   
+                                </th>
+                                
+                                <th class="col" style="text-align: center">
+                                    Coût&nbsp;de&nbsp;Traitement <br/>(FCFA)
+                                   
+                                </th>
+                                
+                                <th>
+                                        <a href="#" class="btn btn-ems myBtn CreerTarif" style="width: 95px">Créer</a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for tarif in tarifs %}
+                            <tr>
+                                
+                                <td data-label="Service" class="col">
+{#                                    {{ tarif.service }}#}
+                                    {{ tarif.service }}
+                                </td>
+                                <td data-label="Référence Document" class="col">
+{#                                    {{ tarif.service }}#}
+                                    {{ tarif.reference }}
+                                </td>
+                                <td data-label="Prix Unitaire" style="text-align: center">
+                                    {%if tarif.prixunitaire|striptags|slice(tarif.prixunitaire|length-2)|raw==0%}
+                                         {{ tarif.prixunitaire|striptags|slice(0, tarif.prixunitaire|length-3)|raw }}
+                                    {%else%}
+                                         {{ tarif.prixunitaire }}
+                                     {%endif%}
+                                     
+                                   
+{#                                    {{ tarif.prixunitaire }}#}
+                                </td>
+                                
+                                <td data-label=" Coût&nbsp;de&nbsp;Stockage" style="text-align: center">
+                                    {%if tarif.coutstockage|striptags|slice(tarif.coutstockage|length-2)|raw==0%}
+                                         {{ tarif.coutstockage|striptags|slice(0, tarif.coutstockage|length-3)|raw }}
+                                    {%else%}
+                                         {{ tarif.coutstockage }}
+                                     {%endif%}
+                                </td>
+                                
+                                 
+                                <td data-label=" Coût&nbsp;de&nbsp;Traitement" style="text-align: center">
+                                    {%if tarif.couttraitement|striptags|slice(tarif.couttraitement|length-2)|raw==0%}
+                                         {{ tarif.couttraitement|striptags|slice(0, tarif.couttraitement|length-3)|raw }}
+                                    {%else%}
+                                         {{ tarif.couttraitement }}
+                                     {%endif%}
+                                </td>
+                                
+                                <td class="action">
+                                    
+{#                                        {{ path('tarif_edit', { 'id': tarif.id }) }}#}
+                                        <a href="#" class="btn btn-ems OpenFormModification myBtn" rel="{{tarif.id}}" style="width: 95px">Tarif</a>
+                                  
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                        
+                        
+                        
+                                <!-- Modal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                           <div id="TarifNew" style="display: none">
+                            <div><span class="close" id="close" style="color: red;font-weight: bold">
+                              &times;</span>
+                            </div>
+
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Création</h1>
+                            </div>
+                            
+                            {{ form_start(form) }}
+                                <div class="form-group">
+                                    <b>Service</b>
+                                    {{ form_widget(form.service,{'attr':{'class':'form-control servicevendu'}}) }}
+                                    {{ form_errors(form.service) }}
+                                </div>
+                                <div class="form-group">
+                                    <b>Prix&nbsp;Unitaire</b>
+                                    {{ form_widget(form.prixunitaire,{'attr':{'class':'form-control float-price', 'placeholder':'Prix Unitaire'}}) }}
+                                    {{ form_errors(form.prixunitaire) }}
+                                </div>
+                                <div style="height: 30px">
+                                    <span style="float: right">
+                                        <input type="submit" value="Créer" class="btn  btn-ems" />
+
+                                    </span>
+                                </div>
+                            {{ form_end(form) }}
+                            </div>
+                            <div id="TarifUpdate" style="display: none">
+                                <div><span class="close" id="close" style="color: red;font-weight: bold">
+                                  &times;</span>
+                                </div>
+                                
+                                <div style="text-align: center">
+                                    <h1 class="mt-4">Tarif</h1>
+                                </div>
+                                <div style="text-align: center" id="libelleService"> 
+                                </div>
+                                <div style="text-align: right"> 
+                                     <a href="#" id="tarifDelete" rel="" class="btn  btn-ems">Supprimer</a>
+                                </div>
+                                
+                                <form action="" id="FormModificationTarif">
+                                    <input type="hidden" id="tarifId" name="tarifId" />
+                                    <div class="form-group">
+                                        <b>Prix&nbsp;Unitaire</b>
+                                        <input type="text" id="tarifService" name="tarifService" class="form-control float-price" placeholder="Prix Unitaire"/>
+                                    </div>
+                                    <div style="height: 30px">
+                                        <span style="float: right">
+                                           <a href="" class="btn  btn-ems">Annuler</a>
+                                            <input type="submit" value="Modifier" class="btn  btn-ems" />
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

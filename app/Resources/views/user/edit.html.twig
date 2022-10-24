@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">  
+                    <h1>
+                      <span class="mt-4">
+                       Utilisateur  
+                      </span>
+                    </h1>
+                    
+                    {{ form_start(edit_form) }}
+                    
+                        <div class="form-group">
+                            <b>Nom</b>
+                            {{ form_widget(edit_form.nom,{'attr':{'class':'form-control width-input-field ltc-nom'}}) }}
+                            {{ form_errors(edit_form.nom) }}
+                        </div>  
+                        
+                       
+                        {% if(user.civilite=='Mr(Mme)') %}
+                            <div class="form-group">
+                                <b>Prénom</b>
+                                {{ form_widget(edit_form.prenom,{'attr':{'class':'form-control width-input-field ltc-nom'}}) }}
+                                {{ form_errors(edit_form.prenom) }}
+                            </div>  
+                        {% else %}     
+                            <div class="form-group">
+                                {{ form_widget(edit_form.prenom,{'attr':{'class':'form-control width-input-field ltc-nom', 'value':' ', 'style':'display:none'}}) }}
+                                {{ form_errors(edit_form.prenom) }}
+                            </div>   
+                        {% endif %}
+
+                        
+                        <div class="form-group">
+                            <b>Téléphone</b>
+                            {{ form_widget(edit_form.telephone,{'attr':{'class':'form-control width-input-field telephone'}}) }}
+                            {{ form_errors(edit_form.telephone) }}
+                        </div>
+                        
+                       
+                        <div style="height: 30px" class="width-input-field">
+                            <span style="float: right">
+                                <a href="{{ path('user_show') }}"class="btn btn-ems">Mon compte</a>
+                                <input type="submit" value="Modifier" class="btn  btn-ems" />
+{#                                <a href="{{ path('receveur_delete',{ 'id': receveur.id }) }}"><input type="button" value="Supprimer" class="btn  btn-ems"/></a>#}
+                            </span>
+                        </div>
+                        
+                    {{ form_end(edit_form) }}
+
+    
+                   
+                </div> 
+            </div>
+        </div>
+     </div>
+{% endblock %}

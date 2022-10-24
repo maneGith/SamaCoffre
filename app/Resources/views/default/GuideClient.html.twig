@@ -1,0 +1,232 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+            {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="content container">
+                    <div>
+                        <div style="text-align: center">
+                            <h1><b> Guide du Client</b></h1>
+                        </div>
+                        <div style="padding-left:10px">
+                           
+                                <div>
+                                    <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                        I.	&nbsp;&nbsp;&nbsp;&nbsp;Definition des Termes
+                                    </a>
+                                    <div style="display: none;background: #fff;padding: 5px;font-size: 18px;" class="updatePU fPU"> 
+                                        
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                   <td><b>Service</b></td>
+                                                   <td>
+                                                       <p> désigne  <b> la Souscription au Dépôt de Documents dans les Coffres Clients ou Employés</b>. Il est défini en fonction du <b>Type des Documents</b>. Vous avez ici <b>cinq Services</b> : <br/>
+                                                           <div style="padding-left: 20px">1. Dépot de <b>Documents Personnels</b> (Bulletins de Paie et Décisions de Congé),</div>
+                                                           <div style="padding-left: 20px">2. Dépot de <b>Relevés de Comptes</b>,</div>
+                                                           <div style="padding-left: 20px">3. Dépot d'<b>Avis de Banque</b>,</div>
+                                                           <div style="padding-left: 20px">4. Dépot de <b>Factures Clients</b>,</div>
+                                                           <div style="padding-left: 20px">5. Dépot de <b>Communications d'Entreprsie</b>(Notes de Service, Circulaires...).
+                                                                <div style="padding-left: 20px"><b>NB:</b> L'accès à ce Service dépend de Votre Souscription au Service <b>Dépot de Documents Personnels</b>.</div>
+                                                           </div>
+                                                       </p>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Référence</b></td>
+                                                   <td><p>désigne  l<b>'Identifiant du Client ou Employé</b>
+                                                            dans le flux de <b>Documents Personnalisés</b> à déposer dans <b>les Coffres</b>. Notez que ces Documents Personnalisés  <b>seront nommés par cet Identifiant</b>. Il s'agit : <b>du Matricule Solde</b> pour les Documents Personnels, <b>du Numéro de Compte</b> pour les Avis de Banque et Relevés de Comptes  et <b>de la Référence Client</b> 
+                                                            pour les Factures Clients.
+                                                            <br/> Pour <b>le Service Communications d'Entreprsie, le Nom du Document importe peu</b> (ne depend d'aucune Référence) car le Service n'est pas Personnalisé.
+                                                       </p>
+                                                   </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                 </div>
+                                <div>
+                                    <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                        II.	&nbsp;&nbsp;&nbsp;Souscription à un Service
+                                    </a>
+                                    <div style="display: none;background: #fff;padding: 5px;font-size: 18px;" class="updatePU fPU">  
+                                         <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                        Pour <b>souscrire à un Service Dépôt Dans Coffre Client ou Employé</b>:<br/>
+                                        1. Dans les menus à gauche de la fenêtre, cliquez sur <span style="background:  gray;color: white;box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">Services</span>.<br/>
+                                        2. Vous accederez sur la liste de vos <b>Services Dépôts Dans Coffres</b>. Cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Souscrire</span>.<br/>
+                                        3. La boîte de Souscription au Service Dépôt Dans Coffre apparaît.<br/>
+                                        4. Dans la zone de choix du Type Document, choisissez le Type de Service(Type Document) dont vous souhaitez souscrire.<br/>
+                                        <img src="{{ asset('img/guide-souscrire.png') }}" alt="souscrire" class="img-souscrire"/>
+                                        
+                                        <br/><br/><ul>
+                                            <li>Cochez sur l’option <b>Droit Traitement et/ou Mise en ligne</b> (<b>Client</b> ou <b>Prestataire</b>)!
+                                               Le choix de la valeur <b>Client</b> Signifie que c’est vous qui avez le <b>droit de Dépôt et de Suppression des Documents</b> pour ce Service.<br/>
+                                              Tandis que la valeur <b>Prestataire</b> signifie que vous attribuez ce droit au fournisseur de la Solution. Cette option a un coût comme expliqué dans le <b><a href="{{path('tarif_client_show')}}" style="color:  #0078b2;font-style: italic;text-decoration: underline;">Principe de Tarification du Service</a></b>.
+                                            </li>
+                                            <li>Cochez sur l’option <b>Droit Guichet</b> (<b>Lister</b> ou <b>Ouvrir</b>). Le <b>Guichet</b> est un <b>Utilisateur</b> que vous pouvez créer dans chaque emplacement (bureau ou agence) de votre Entreprise afin de vous <b>faciliter la Gestion de vos Coffres Clients ou Employés </b>(Création, Configuration des Coffres et Recherche de Documents Déposés).<br/>
+                                                Le choix de la valeur <b>Lister</b> signifie que le <b>Guichet</b> ne peut que lister les Documents Déposés. Tandis que la valeur <b>Ouvrir</b> Lui donne aussi bien la possibilité de Les lister et Les ouvrir.
+
+                                            </li>
+                                             <li>Cochez l’option <b>Durée Stockage</b> (<b>3 mois</b> ou <b>1 an</b>). Si vous choisissez l'option <b>1 an</b>  pour Durée de Stockage des Documents de ce Service, il y'aura un coût comme expliqué dans le <b><a href="{{path('tarif_client_show')}}" style="color:  #0078b2;font-style: italic;text-decoration: underline;">Principe de Tarification du Service</a></b>. 
+                                            </li>
+                                        </ul>
+                                         5. Cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Souscrire</span>.<br/>
+                            
+                                                    </td> 
+                                                </tr> 
+                                            </tbody> 
+                                         </table>
+                                    </div>
+                                 </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    III. &nbsp;&nbsp;Modification ou Suppression de Service
+                                    </a>
+                                    <div style="display: none;background: #fff;padding: 5px;font-size: 18px;" class="updatePU fPU"> 
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Pour modifier ou supprimer un Service crée :<br/>
+                                                        1. Cliquez sur la flêche devant le Service que vous voulez modifier ou supprimer.<br/>
+                                                        <img src="{{ asset('img/guide-ms-service.png') }}" alt="souscrire" style="width: 100%; border: 1px solid #555;"/><br/>
+                                                        2. Pour modifier, cochez sur les options à modifier puis cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Modifier</span>.<br/>
+                                                        3. Pour supprimer, cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Supprimer</span>.<br/>
+                                                    </td> 
+                                                </tr> 
+                                            </tbody> 
+                                         </table>
+                                    </div>
+                                </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    IV. &nbsp;&nbsp;Création de Coffre Employé ou Client
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU">
+                                         <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Les Coffres Employés ou Clients <b>peuvent être créés par Eux-mêmes</b>. Si c'est le cas, allez à l'étape 
+                                                        <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU etapeAjoutCoffre">Ajout de Coffre à un Service</a>. Sinon, <b>vous pouvez Leur en créer</b>. Pour ce faire :<br/>
+                                                        
+                                                         1. Dans les menus à gauche de la fenêtre, cliquez sur <span style="background:  gray;color: white;box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">Accueil</span>.<br/>
+                                                         2. Cliquez sur l'icône coffre <img src="{{ asset('img/icone-coffre.png') }}" alt="icone" width="25px"/> situé à droite, dans l'entête de la page.<br/>
+                                                         3. La boîte de Création Coffre  apparaît.<br/>
+                                                         4. Vous avez le choix selon que <b>le Coffre</b> soit <b>une Personne Physique</b> ou <b>Morale</b>( Entreprise ou Profession libérale). <br/>
+                                                         <img src="{{ asset('img/guide-cre-coffre.png') }}" alt="souscrire" class="img-souscrire"/>
+                                                         <br/>
+                                                         5. Entrez les informations du <b>Propriétaire du Coffre</b> et cliquer sur  le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Créer</span>.<br/>
+                                                         6. Le <b>Propriétaire du Coffre</b> recevra son <b>Mot de passe</b>  par mail.
+                                                    </td> 
+                                                </tr> 
+                                            </tbody> 
+                                         </table>
+                                    </div>
+                                </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                     V.	&nbsp;&nbsp;&nbsp;Ajout de Coffre Employé ou Client à un Service
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU AjoutCoffre"> 
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Pour <b>ajouter un Coffre Employé ou Client à un Service</b>:<br/>
+                                                        1. Dans les menus à gauche de la fenêtre, cliquez sur <span style="background:  gray;color: white;box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);">Services</span>.<br/>
+                                                        2. La liste des <b>Services Dépôts Dans Coffres</b> dont vous avez souscrit apparaît.<br/>
+                                                        3. Cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Ajouter Coffre</span> sur la même ligne, devant  le <b>Service en question</b>.<br/>
+                                                        <img src="{{ asset('img/guide-al-coffre.png') }}" alt="souscrire" style="width: 100%; border: 1px solid #555;"/><br/><br/>
+                                                        4. La <b>Liste des Coffres Pour le Service en question </b> apparaît :<br/>
+                                                        <img src="{{ asset('img/guide-cliste-coffre.png') }}" alt="souscrire" style="width: 100%; border: 1px solid #555;"/><br/><br/>
+                                                        5. Cliquez sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Ajout</span>, il va apparaître la boîte d'<b>Ajout de Coffre</b>:<br/>
+                                                        <img src="{{ asset('img/guide-coffre-service.png') }}" alt="souscrire" class="img-souscrire"/><br/><br/>
+                                                        6. Entrez les valeurs et cliquez  sur le bouton <span style="background:  #265ead;color: white;box-shadow: -1px 2px 5px 1px rgba(38, 94, 173, 0.7);">Ajouter</span>.
+                                                    </td> 
+                                                </tr> 
+                                            </tbody> 
+                                        </table>
+                                    </div>
+                                 </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    VI.	&nbsp;&nbsp;Dépôt de Documents pour un Service
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    VII. &nbsp;Suppression de Documents pour un Service
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                 </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    VIII. Recherche des Dépôts d'un Service
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                   IX.	&nbsp;&nbsp;Edition des Factures
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                </div>
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    X.	&nbsp;&nbsp;&nbsp;Guichets de Gestions des Coffres
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                </div>
+                                        
+                                <div>
+                                     <a href="#" style="text-decoration: none;color: #0078b2;font-weight: bold" class="cliupdatePU">
+                                    XI.	&nbsp;&nbsp;Réclamations Clients
+                                    </a>
+                                    <div style="display: none;background: #fff;" class="updatePU fPU"> 
+                                        rrr
+                                    </div>
+                                </div>
+                           
+                        </div>
+                                                        
+                        <!-- Modal -->
+                        <div id="myModal" class="modal">
+                            <!-- Modal content -->
+                            <div class="modal-content" style="max-width: 21.7rem">
+                              <div><span class="close" id="close" style="color: red;font-weight: bold">&times;</span></div>
+                                {{ include('user/new.html.twig') }}
+                            </div>               
+                        </div>                 
+                       
+                    </div>         
+                </div> 
+            </div>
+        </div>
+     </div>
+{% endblock %}
+
+
+
+

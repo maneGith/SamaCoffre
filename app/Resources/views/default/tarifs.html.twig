@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     {{ include('includes/entete-menu-defilant.html.twig') }}
+<div id="cgDiv">
+    <div id="container">
+            <div style="background: #fff;padding: 5px">
+            <div style="text-align: right">
+                <a href="{{path('login')}}" class="btn  btn-ems">
+                           Connexion
+                </a>
+            </div>
+            <div id="welcome" style="text-align: center">
+                <h1><b>Principe de Tarification du Service</b></h1>
+            </div>
+            <div  style="text-align: center">
+                <h1><b>P = V * T</b></h1>
+            </div>
+                           
+            
+                           {# <div style="border-bottom: solid 1px #d2d2d2">
+                            </div>#}
+            
+            <div id="next"> 
+                 <p>
+                     
+                      Le  <b>Volume V</b> d'un <b>document PDF</b> mis en ligne dans l'Application <b><span style="color: #66CDAA">sama</span><span style="color: #265ead">COFFRE</span></b> se détermine   par la formule 
+                     <b>V</b> = (<b>N</b> - <b>N</b>%<b>4</b>)/<b>4</b> + <b>Q</b> , <b>Q</b>={<b>0</b> ou  <b>1</b>},
+                     <b>Q</b> est égal  à  <b>0</b> si <b>N%4</b> = <b>0</b> sinon <b>Q</b> = <b>1</b>.<br/>
+                     <b>Exemple :</b> Le Volume <b>V</b> d'un document PDF de <b>9</b> pages est égal à 
+                     <b>V</b> = (<b>9</b>-<b>9</b>%<b>4</b>)/<b>4</b> + <b>1</b> car <b>9</b>%<b>4</b> est différent de <b>0</b>,<br/>
+                     <b>V</b> = (<b>9</b>- <b>1</b>)/ <b>4</b> +  <b>1 </b>,  soit <b>V</b> =  <b>3</b>. <br/>
+                     
+                      Ainsi pour un document PDF de <b>1 à 4 pages</b>, on trouve <b>V</b> = <b>1</b>.
+                     <br/>
+                      
+                 </p>
+                 Le <b>Tarif Unitaire (Hors TVA) T</b> des <b>Documents PDF</b> mis en ligne est défini  par <b>Type de Document</b> comme suit :
+                 
+                 <ul>
+                        <li> <p><b>200 FCFA</b> pour les Bulletins de Paie, </p></li>
+                        <li> <p><b>200 FCFA</b> pour les Décisions de Congé, </p></li>
+                        <li> <p><b>200 FCFA</b> pour les Relevés de Comptes Bancaires, </p></li>
+                        <li> <p><b>200 FCFA</b> pour les  Avis Bancaires, </p></li>
+                        <li> <p><b>150 FCFA</b> pour les Factures de Vos Clients, </p></li>
+                        <li> <p><b>200 FCFA</b> pour les Communications d'Entreprise (Circulaires, Notes de Service,  Faire-part ...) </p></li>
+                    </ul>
+                 <b>NB:</b><br/>
+                 
+                   
+                 <ul>
+                     <li>
+                         <p>
+                             Si le Client nous <b>confie le traitement et/ou la mise en ligne de ses documents PDF</b>, nous ajoutons une taxe forfaitaire de <b>25 FCFA (Hors TVA)</b> au Tarif Unitaire représentant le <b>coût de traitement et/ou mise en ligne M</b> pour ce Service.
+                            </p>
+                     </li>
+                     <li> <p>
+                          Le client a le choix de stocker ses documents pour une durée de <b>3 mois</b> ou pour une durée de <b>1 an</b>. S'il opte pour <b>1 an</b>, un <b>cout supplémentaire de stockage S</b> s'ajoute au Tarif Unitaire.
+                 Il se détermine par <b>S= T * 30/100 * 3 (Hors TVA)</b>. </p>
+                     </li>
+                 </ul>
+                 
+                  <b>Exemple</b> : Pour un <b>Bulletin de Paie</b> de <b>1 à 4 pages</b>, <b>V</b> = <b>1</b>. Déterminons <b>P = V * T</b> :<br/>
+                  
+                    <ul>
+                        <li> <p>Sans <b>Traitement</b> et <b>Durée de Stockage 3 mois</b><br/>
+                                T   = T = 200 FCFA<br/>
+                                P = 1 * 200<br/>
+                                <b>P = 200 FCFA (Hors TVA)</b>
+                            </p>
+                        </li>
+                        <li> <p>Avec <b>Traitement</b> et <b>Durée de Stockage 3 mois</b><br/>
+                                T   = T + M = 200 + 25 = 225 FCFA<br/>
+                                P = 1 * 225<br/>
+                                <b>P = 225 FCFA (Hors TVA)</b>
+                            </p>
+                        </li>
+                        <li> <p>Sans <b>Traitement</b> et Avec <b>Durée de Stockage 1 an</b><br/>
+                                T   = T + S = 200 + 200*30/100*3 = 200 + 180 = 380 FCFA<br/>
+                                P = 1 * 380<br/>
+                                <b>P = 380 FCFA (Hors TVA)</b>
+                            </p>
+                        </li>
+                        <li> <p>Avec <b>Traitement</b> et <b>Durée de Stockage 1 an</b><br/>
+                                T=T+M+S = 200 + 25 + 180 = 405 FCFA<br/>
+                                P = 1 * 405<br/>
+                                <b>P = 405 FCFA (Hors TVA)</b>
+                            </p>
+                        </li>
+                    </ul>            
+                
+               
+                </div> 
+                           
+                           <div style="text-align: left">
+                     <h2><b>Définitions des Termes et Symboles</b></h2>
+               <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><b>P</b></td>
+                            <td><p> désigne le <b>Prix</b> d'un Document PDF mis en ligne.</p></td>
+                        </tr>
+                         <tr>
+                            <td><b>V</b></td>
+                            <td><p>désigne le <b>Volume</b> d'un document PDF mis en ligne.</p></td>
+                        </tr>
+                        <tr>
+                            <td><b>T</b></td>
+                            <td><p>désigne le <b>Tarif Unitaire</b> des Documents PDF mis en ligne. Il dépend du <b>Type de Document</b>. 
+                                    Il  change si <b>le traitement nous est confié</b> 
+                                    et si <b> la durée de stockage des documents est pour 1 an</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>N</b></td>
+                            <td><p>désigne le <b>nombre de pages</b> d'un document PDF mis en ligne.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Q</b></td>
+                            <td><p> est un réel qui prend la valeur  <b>0</b>  si <b>N%4</b> = <b>0</b> sinon il prend la valeur <b>1</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>M</b></td>
+                            <td><p>désigne le <b>Coût de  Traitement et/ou de mise en ligne </b> d'un document PDF s'il nous est confié.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>S</b></td>
+                            <td><p>désigne le <b>Coût de Stockage</b> d'un document PDF pour <b>une durée de stockage de 1 an</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>+</b></td>
+                            <td><p>désigne l'opérateur arithmétique  <b>addition</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><b>-</b></td>
+                            <td><p>désigne l'opérateur arithmétique  <b>soustraction</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><b>*</b></td>
+                            <td><p>désigne l'opérateur arithmétique  <b>multiplication</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><b>/</b></td>
+                            <td><p>désigne l'opérateur arithmétique  <b>division</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>%</b></td>
+                            <td><p>désigne l'opérateur arithmétique  <b>modulo</b>.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Traitement</b></td>
+                            <td><p>résume ici <b>le Traitement et/ou la Mise en ligne des Documents en PDF</b> lorsqu'il nous est confié.
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                 
+            </div>
+                        
+
+        </div>
+                              
+    </div>        
+{% endblock %}
+
+
+  

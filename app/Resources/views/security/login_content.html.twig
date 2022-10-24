@@ -1,0 +1,121 @@
+
+    <div style="margin-bottom: 20px;text-align: center">
+        <b>LOGIN</b>
+    </div>
+
+{#{{ path("fos_user_security_check") }}#}
+    <form action="{{ path('login') }}" method="post">
+        
+
+        <div class="form-group">
+            <input type="email" id="username" name="_username" value="{{ username }}" required="required" autocomplete="off" class="form-control" placeholder="Adresse email"/>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="_password" required="required" autocomplete="current-password" class="form-control" placeholder="Mot de passe"/>
+        
+            <div style="margin-top:7px">
+                <input type="checkbox"  id="affichePWD"/>
+                <span style="font-size: 14px;">&nbsp;Afficher le mot de passe</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+                <input type="submit" id="_submit" name="_submit" value="Connexion" class="btn btn-ems" style="line-height: 30px;height: 48px;font-size: 20px;cursor: pointer;width: calc(100%)"/>
+           
+        </div>
+
+    </form>
+        
+    {% if error %}
+        <div class="border border-danger" id="danger-user" style="border-radius: 5px;">
+            {% if error.messageKey == 'Invalid credentials.' %}
+                <div>Adresse email ou Mot de passe Invalide</div>
+            {% else %}
+                <div>{{ error.messageKey }}</div>
+            {% endif %}
+            
+        </div>
+    {% endif %}
+    
+    <div style="text-align: center">
+        <a href="{{path('user_pwdChange')}}"  style="color: #265ead;font-size: 13px;text-decoration: none">Mot de passe oublié ?</a>
+    </div>
+
+    
+        <ul style="padding:0;margin:0;list-style-type:none;margin-top: 7px">
+            <li style="float:left;width: 30%">
+                <div style="border-bottom: solid 2px #A2A2A2"></div>
+            </li>
+            <li style="float:left;width: 40%">
+                <div style="text-align: center">
+                    <span style="color: #A2A2A2">Inscrire / Créer</span>
+                </div>
+            </li>
+            <li style="float:left;width: 30%">
+               <div style="border-bottom: solid 2px #A2A2A2"></div>
+            </li>
+        </ul>
+    <div style="clear: both"></div>
+    <div style="text-align: right;margin-bottom: 10px">
+        
+           {# <a href="{{path('info_client')}}" style="font-weight: bold;text-decoration: none;width: 110px" class="btn btn-ems">
+                       {# <i class="fa fa-angle-left fa-lg"></i>#}
+{#                         Entreprise#}
+{#            </a>#}
+    <a href="#" class="btn  btn-ems myBtn creerEntreprise" style="font-weight: bold;text-decoration: none;width: 110px">
+                              Entreprise
+    </a>
+                        
+                         <a href="#" class="btn btn-ems myBtn creerCoffre" style="font-weight: bold;text-decoration: none;width: 110px">
+                 Coffre</a>
+    </div>
+                        <div style="text-align: center;">
+           
+       
+    </div>
+ 
+    
+
+{#    Template Recherche Mot de Passe Oublie#}
+    <div id="divrappelpwd" style="display: none;"> 
+       {# {{ render(controller(
+            'AppBundle\\Controller\\UserController::chercherUserAction'
+        ))}}#}
+        {{ include('user/chercher.html.twig') }}
+    </div>
+    
+    <div style="overflow-x: hidden;text-align: center;padding-top: 20px;" id="imgMobile"> 
+        <div  style="padding-left: 5px;padding-right: 5px;color: #5f6368;font-size: 15px;line-height: 1.4286;">
+{#            <span style="font-weight: bold">Distribution</span>#}
+          {#<img src="{{ asset('img/courrier-entreprise.png') }}" alt="Girl in a jacket" width="70px" height="70px" class="img">
+          <div class="texte_centrer_mobile" style="line-height: 23px">
+              <span style="font-weight: bold">Electroniques d'Entreprise</span><br/>
+              <a href="#" class="myBtn btn btn-ems infoCoffre">
+                  C'est Ici !
+                   <i class="fa fa-angle-right fa-lg"></i>
+              </a>
+          </div>#}
+         
+          <span class="myBtn infoCoffre" style="font-weight: bold">
+               <a href="#" style="text-decoration: none;color: #265ead;">
+                          Documents RH et Clients
+                        </a>  
+              
+          </span>
+          {#<a href="#" class="myBtn btn btn-ems infoCoffre" style="float: right">
+                  C'est Ici !
+                   <i class="fa fa-angle-right fa-lg"></i>
+          </a>#}
+        </div>
+          {#<div style="text-align: left;font-style: italic;padding: 5px;font-size: 15px;clear: both"> 
+               <b>{{nentreprises}} Entreprises utilisent La Solution</b>
+           </div>#}
+    </div>
+     
+   
+    
+    
+    
+    

@@ -1,0 +1,85 @@
+
+    <div style="margin-bottom: 10px;text-align: right">
+        <a href="#" class="btn btn-ems myBtn creerCoffre">Créer Un Coffre</a>
+    </div>
+
+{#{{ path("fos_user_security_check") }}#}
+    <form action="{{ path('login') }}" method="post">
+        
+
+        <div class="form-group">
+            <input type="email" id="username" name="_username" value="{{ username }}" required="required" autocomplete="off" class="form-control" placeholder="Adresse email"/>
+        </div>
+
+        <div class="form-group">
+            <input type="password" id="password" name="_password" required="required" autocomplete="current-password" class="form-control" placeholder="Mot de passe"/>
+        
+            <div style="margin-top:7px">
+                <input type="checkbox"  id="affichePWD"/>
+                <span style="font-size: 14px;">&nbsp;Afficher le mot de passe</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            
+                <input type="submit" id="_submit" name="_submit" value="Connexion" class="btn btn-ems" style="line-height: 30px;height: 48px;font-size: 20px;cursor: pointer;width: calc(100%)"/>
+           
+        </div>
+
+    </form>
+        
+    {% if error %}
+        <div class="border border-danger" id="danger-user" style="border-radius: 5px;">
+            {% if error.messageKey == 'Invalid credentials.' %}
+                <div>Adresse email ou Mot de passe Invalide</div>
+            {% else %}
+                <div>{{ error.messageKey }}</div>
+            {% endif %}
+            
+        </div>
+    {% endif %}
+    
+    <div style="text-align: center">
+        <a href="#" id="btnrappelpwd" style="color: #265ead;font-size: 13px;text-decoration: none">Mot de passe oublié ?</a>
+    </div>
+
+    
+
+    
+    
+
+{#    Template Recherche Mot de Passe Oublie#}
+    <div id="divrappelpwd" style="display: none;"> 
+       {# {{ render(controller(
+            'AppBundle\\Controller\\UserController::chercherUserAction'
+        ))}}#}
+        {{ include('user/chercher.html.twig') }}
+    </div>
+    
+    <div style="overflow-x: hidden;text-align: center;padding-top: 10px;" id="imgMobile"> 
+        <div class="contenant">
+          <img src="{{ asset('img/courrier-entreprise.png') }}" alt="Girl in a jacket" width="70px" height="70px" class="img">
+          <div class="texte_centrer" style="line-height: 16px">
+              <span style="font-weight: bold">Vos Courriers Electroniques</span><br/>
+              <a href="#" class="myBtn btn btn-ems">
+                  C'est Ici !
+                   <i class="fa fa-angle-right fa-lg"></i>
+              </a>
+          </div>
+          
+          <div  style="position: relative"> 
+            <span style="position: absolute;right: 2px;top: -70px">
+                <a href="{{path('info_client')}}" style="font-weight: bold;text-decoration: none;" class="btn btn-ems">
+                    <i class="fa fa-angle-left fa-lg"></i>
+                    ENTREPRISE
+                </a>
+            </span>
+        </div>
+        </div>
+    </div>
+     
+   
+    
+    
+    
+    

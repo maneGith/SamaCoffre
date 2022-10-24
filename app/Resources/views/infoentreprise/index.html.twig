@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4">
+                          Informations Personnel ou Clients
+                        </span>
+                    </h1>
+                    
+                 
+                   
+                        <div>
+                            <span style="float: right">
+                            <ul style="padding:0;margin:0;list-style-type:none;">
+                                <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                      <a href="#" class="btn btn-ems myBtn CreerInfoEtr" style="width: 125px">Mettre En Ligne</a>
+                                </li>
+                            </ul></span>
+                        </div>
+                     <table class="table-responsive table table-hover results table-fixed">
+                        <thead>
+                            <tr>
+                                
+                                <th class="col">Information</th>
+                                <th style="text-align:center">Catégorie</th>
+                                <th style="text-align:center">Volume</th>
+                                <th style="text-align:center">Date</th>
+                                <th>
+                                    <div style="min-width: 200px;text-align: right">
+                                        <a href="#" class="btn btn-ems myBtn CreerInfoEtr" style="width: 125px">Mettre En Ligne</a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for infoEntreprise in infoEntreprises %}
+                            <tr>
+{#                                <td><a href="{{ path('infoentreprise_show', { 'id': infoEntreprise.id }) }}">{{ infoEntreprise.id }}</a></td>#}
+                                <td data-label="Information" class="col">
+                                    {{ infoEntreprise.objet }}
+                                    <span style="float:right" class="cliupdatePU" >
+                                        <a href="#" style="text-decoration: none;color: #777"> 
+                                            <i class="fa fa-caret-square-o-down" aria-hidden="true" style="color: #265ead;"></i>
+                                        </a>
+                                    </span>
+                                    <div style="display: none;max-width: 20rem;background: #fff;" class="updatePU fPU">
+                                        <form action="{{ path('infoentreprise_edit', { 'id': infoEntreprise.id }) }}" method="post">
+                                            <div style="text-align:center">
+                                                      <span style="color: #265ead;font-weight: bold">Modification</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div style="text-align:left"><b>Catégorie</b></div>
+                                                <select name="nature" class="form-control">
+                                                    <option value="Circulaire" {%if infoEntreprise.nature=='Circulaire' %} selected {%endif%}>Circulaire</option>
+                                                    <option value="Faire-part" {%if infoEntreprise.nature=='Faire-part' %} selected {%endif%}>Faire-part</option>
+                                                    <option value="Information Client" {%if infoEntreprise.nature=='Information Client' %} selected {%endif%}>Information Client</option>
+                                                    <option value="Note de Service" {%if infoEntreprise.nature=='Note de Service' %} selected {%endif%}>Note de Service</option>
+                                                    <option value="Note d'Information" {%if infoEntreprise.nature=="Note d'Information" %} selected {%endif%}>Note d'Information</option>
+                                                </select>         
+                                            </div>
+                                            <div class="form-group">
+                                                <div style="text-align:left"><b>Objet</b></div>
+                                                <textarea name="objet" required="required" class="form-control">{{ infoEntreprise.objet }}</textarea>           
+                                            </div>
+                                                
+                                            <div style="height: 30px">
+                                                <span style="float: right">
+                                                    <input type="submit" value="Modifier" class="btn  btn-ems" />
+                                                </span>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </td>
+                                <td data-label="Catégorie" style="text-align:center">
+                                     {{ infoEntreprise.nature }}
+                                </td>
+                                <td data-label="Volume (Plis)" style="text-align:center">
+                                   {{ infoEntreprise.volume }}
+                                </td>
+                                <td data-label="Date" style="text-align:center">
+                                    {% if infoEntreprise.date %}{{ infoEntreprise.date|date('d/m/Y') }}{% endif %}
+                                </td>
+                                
+                                 
+                                <td  class="action">
+                                      <div style="min-width: 200px;text-align: right">
+                                    <a href="{{ path('infoentreprise_show', { 'id': infoEntreprise.id }) }}" class="btn btn-ems">Ouvrir</a>
+                                    <a href="{{ path('infoentreprise_delete', { 'id': infoEntreprise.id }) }}" class="btn btn-ems">Supprimer</a>
+                                   </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                        
+                        
+                        
+                                <!-- Modal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                           <div><span class="close" id="close" style="color: red;font-weight: bold">
+                              &times;</span>
+                            </div>
+
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Information</h1>
+                            </div>
+                            
+                             {{ form_start(form,{'attr' : {'id':'formInfoEntreprise'}}) }}
+                            
+                                <div class="form-group">
+                                    <b>Catégorie</b>
+                                    {{ form_widget(form.nature,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_errors(form.nature) }}
+                                </div>
+                                <div class="form-group">
+                                    <b>objet</b>
+                                    {{ form_widget(form.objet,{'attr':{'class':'form-control ltc-nom', 'placeholder':'Objet'}}) }}
+                                    {{ form_errors(form.objet) }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    <b>{{ form_label(form.brochure) }}</b>
+                                    {{ form_widget(form.brochure) }}
+                                    {{ form_errors(form.brochure) }}
+                                </div>
+
+                                <div style="height: 30px">
+                                    <span style="float: right">
+                                        <a href="" class="btn btn-ems">Annuler</a>
+                                        <input type="submit" value="Envoyer" class="btn  btn-ems" />
+                                    </span>
+                                </div>
+                            {{ form_end(form) }}
+
+                            
+                        </div>
+                    </div>
+                   
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

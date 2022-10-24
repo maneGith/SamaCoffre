@@ -1,0 +1,447 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('includes/entete-menu-defilant.html.twig') }}
+
+    <!-- Menu and Content -->
+    <div class="div-preview">
+        <div class="d-flex" id="wrapper">
+            <!-- Page menu -->
+             {{ include('includes/menu-lateral.html.twig') }}
+            
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+               
+                <div class="content container">
+                    <h1>
+                        <span class="mt-4">
+                       Services Dépôts Dans Coffres
+                        </span>
+                    </h1>
+                        
+                        
+                    <div style="height: 40px;">
+                           <span style="float: right;margin-bottom: 5px">
+                               <ul style="padding:0;margin:0;list-style-type:none;">
+                                   <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                        {% if(is_granted('ROLE_ENTREPRISE')) %}  
+                                             <a href="#" class="btn btn-ems r-ems myBtn souscrire" style="width: 110px">Souscrire</a>
+                                        {% endif %}
+                                   </li>
+                                   <li style="margin-left:2px;float:left;" class="creation-mobile">
+                                        {% if(is_granted('ROLE_ENTREPRISE')) %}  
+                                            <a href="{{path('certificat_client', { 'id':entreprise.id })}}" class="btn btn-ems r-ems" style="width: 95px">Factures</a>
+                                        {% endif %}
+                                   </li>
+                               </ul>
+                           </span> 
+                    </div>
+                     
+                    {#{% if(is_granted('ROLE_ENTREPRISE')) %}
+                        <div>
+                            <span style="float:right">
+                                 <span style="font-weight:bold">
+                                    Taille Unitaire Facturation: 
+                                 </span>
+                                <span style="color:red">{{poidsunitaire}}</span> KO
+                            </span>
+                        </div>
+                    {% endif %}#}
+
+                    <table class="table-responsive table table-hover results table-fixed" >
+                        <thead>
+                            <tr> 
+                                <th class="col" >
+                                  Service
+                                </th>
+                                
+                                <th class="col" >
+                                    <div style="text-align: center">
+                                      Durée Stockage
+                                    </div>
+                                </th>
+                                
+                                 {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                    
+                               <th class="col" style="text-align: center">
+                                  Prix&nbsp;Unitaire (FCFA)
+                                </th>
+                                {#<th class="col" >
+                                    <div style="text-align: center">
+                                      Droit Traitement/Dépôt
+                                    </div>
+                                </th>#}
+                                
+                               {# <th class="col" >
+                                    <div style="text-align: center">
+                                      Droit Guichet
+                                    </div>
+                                </th>#}
+                                
+                                 {% endif %}
+                                 
+                                 
+                                
+                                
+                                {#<th class="col" >
+                                    <div style="text-align: center">
+                                      Etat
+                                    </div>
+                                </th>#}
+                            
+                            
+
+                           
+                            <th class="col" >
+                                <div style="min-width: 300px;text-align: right">
+                                      {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                          <span style="float: right">
+                                              <a href="#" class="btn btn-ems r-ems myBtn souscrire" style="width: 110px">Souscrire</a>
+                                              <a href="{{path('certificat_client', { 'id':entreprise.id })}}" class="btn btn-ems r-ems" style="width: 110px">Factures</a>  
+                                          </span>
+                                      {% endif %}
+                                 </div>                           
+                            </th>
+                             
+                              
+                            </tr>
+                            <tr class="warning no-result">
+                              <td colspan="4"><i class="fa fa-warning"></i> sans résultat</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                    
+                                     {% for entrepriseService in entrepriseServices %}
+                                       <tr>
+                                    
+                                   
+                                 
+                                    
+                                    <td data-label="Service" class="col">  
+                                      <span>
+                                          {{ entrepriseService.service.service }}
+                                      </span>
+                                      
+                                       {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                         <span style="float:right" class="cliupdatePU">
+                                            <a href="#" style="text-decoration: none;color: #777"> 
+                                                <i class="fa fa-caret-square-o-down" aria-hidden="true" style="color: #265ead;"></i>
+                                            </a>
+                                        </span>
+                                       {% endif %}
+                                     
+                                          <div style="display: none;max-width: 20rem;background: #fff;" class="updatePU fPU"> 
+                                            <form action="{{ path('entrepriseservice_edit', {'id':entrepriseService.id}) }}" method="post">
+                                                  <div style="text-align:center">
+                                                      <span style="color: #265ead;font-weight: bold">MODIFICATION/SUPPRESSION</span>
+                                                  </div>
+                                                  
+                                                  {#<div class="form-group" style="padding-right:4px">
+                                                        <div style="text-align:left"><b>Droit Traitement/Dépôt</b></div>
+                                                        <div class="radio">
+                                                          <label class="required">
+                                                              <input  name="inputoutput" required="required" value="Client" type="radio"   {% if entrepriseService.droitinout=='Client'%} checked {% endif %} class="form-control"/>
+                                                              Client
+                                                          </label>
+                                                        <span style="float:right">
+                                                          <label class="required">
+                                                              <input  name="inputoutput" required="required" value="Prestataire" type="radio" {% if entrepriseService.droitinout=='Prestataire'%} checked {% endif %} class="form-control" />
+                                                              Prestataire
+                                                          </label>
+                                                        </span>
+                                                        </div>
+                                                </div>#}
+                                                  
+                                                <div class="form-group" style="padding-right:34px">
+                                                        <div style="text-align:left"><b>Durée Stockage</b></div>
+                                                        <div class="radio">
+                                                                     <ul style="list-style:none">
+                                                                    <li style="float:left;width: 158px">
+                                                                        <label class="required">
+                                                                <input  name="stockage" required="required" value="3 mois" type="radio"   {% if entrepriseService.stockage=='3 mois'%} checked {% endif %} class="form-control" />
+                                                                3 mois
+                                                            </label>
+                                                                    </li>
+                                                                    <li style="float:left;">
+                                                                        <label class="required">
+                                                                     <input  name="stockage" required="required" value="1 an" type="radio" {% if entrepriseService.stockage=='1 an'%} checked {% endif %} class="form-control" />
+                                                                     1 an&nbsp;&nbsp;&nbsp;
+                                                                 </label>
+                                                                    </li>
+                                                                </ul> 
+                                                        </div>
+                                                </div>
+             
+                                                {#{%if entrepriseService.service.service!='Documents Salarié'%}
+                                                    
+                                                    <div class="form-group" style="padding-right:10px">
+
+                                                            <div style="text-align:left"><b>Droit Guichet</b></div>
+                                                            <div class="radio">
+                                                                <ul style="list-style:none">
+                                                                    <li style="float:left;width: 150px">
+                                                                        <label class="required">
+                                                                            <input  name="droitguichet" required="required" value="Lister" type="radio"   {% if entrepriseService.droitguichet=='Lister'%} checked {% endif %} class="form-control"/>
+                                                                            Lister
+                                                                        </label>
+                                                                    </li>
+                                                                    <li style="float:left;">
+                                                                        <label class="required">
+                                                                            <input  name="droitguichet" required="required" value="Ouvrir" type="radio" {% if entrepriseService.droitguichet=='Ouvrir'%} checked {% endif %}class="form-control" />
+                                                                            Ouvrir
+                                                                        </label>
+                                                                    </li>
+                                                                </ul>                                                              
+                                                            </div>
+                                                    </div>
+                                                {%endif%}#}
+                                                
+                                                <div style="clear:both"> </div>
+                                                
+                                                          
+                                              
+                                                <div style="text-align: right">
+                                                  {#<a href="" style="text-decoration:none" class="btn btn-ems r-ems"> 
+                                                      <i class="fa fa-ban" aria-hidden="true"></i>
+                                                  </a>#}
+                                                
+                                                  
+                                                  <button type="submit" class="btn btn-ems r-ems" style="width: 110px">
+                                                     {# <i class="fa fa-pencil-square-o" aria-hidden="true"></i>#}
+                                                     Modifier
+                                                  </button>
+                                                     
+                                                  <a href="{{ path('entrepriseservice_delete', { 'id': entrepriseService.id }) }}" style="text-decoration:none;width: 110px" class="btn btn-ems r-ems"> 
+                                                     {# <i class="fa fa-trash-o" aria-hidden="true"></i>#}
+                                                     Supprimer
+                                                  </a>
+                                                     
+                                                </div>
+                                            </form> 
+                                          </div>
+                                    </td> 
+                                    
+                                    
+                                      
+                                     <td data-label="Durée Stockage">              
+                                            <div style="text-align: center">
+                                                
+                                                {%if entrepriseService.stockage =='1 an'%}
+                                                    <span style="color:red">
+                                                         {{ entrepriseService.stockage }}
+                                                    </span>
+
+                                                {%else%}
+                                                     {{ entrepriseService.stockage  }}
+                                                {%endif%}
+                                                
+                                                    
+                                            </div>    
+                                        </td> 
+                                    
+                                  
+                                    
+                                     {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                         
+                                    <td data-label="Prix Unitaire" class="col" style="text-align: center">
+                                        
+                                        {% set prix = 0 %}
+                                        
+                                        {% if entrepriseService.droitinout=='Prestataire' and entrepriseService.stockage=='1 an'%}
+                                            {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.couttraitement + entrepriseService.service.coutstockage %}
+                                        {% elseif entrepriseService.droitinout=='Prestataire' %}
+                                            {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.couttraitement %}
+                                        {% elseif entrepriseService.stockage=='1 an' %}
+                                            {% set prix = entrepriseService.service.prixunitaire + entrepriseService.service.coutstockage %}
+                                        {% else %}
+                                            {% set prix = entrepriseService.service.prixunitaire %}
+                                        {%endif%}
+                                        
+                                       
+                                           
+{#                                      {{ entrepriseService.service.prixunitaire }}#}
+                                      
+                                        {%if prix|striptags|slice(prix|length-3)|raw=='.00'%}
+                                             {{ prix|striptags|slice(0, prix|length-3)|raw }}
+                                        {%else%}
+                                             {{ prix }}
+                                        {%endif%}
+                                           
+                                    </td> 
+
+                                        
+                                        {#<td data-label=" Droit Traitement/D">              
+                                            <div style="text-align: center">
+                                                
+                                                
+                                        {%if entrepriseService.droitinout=='Prestataire'%}
+                                            <span style="color:red">
+                                                 {{ entrepriseService.droitinout }}
+                                            </span>
+                                            
+                                        {%else%}
+                                             {{ entrepriseService.droitinout }}
+                                        {%endif%}
+                                        
+                                               
+                                         
+                                            </div>    
+                                        </td> #}
+                                        
+                                       {# 
+                                        <td data-label="Droit Guichet">              
+                                            <div style="text-align: center">
+                                                
+                                                     {{ entrepriseService.droitguichet  }}
+                                               
+                                            </div>    
+                                        </td> #}
+                                     {% endif %}
+                                   
+                                   
+                                    <td  class="action">
+                                        <div style="text-align: right;line-height: 30px">
+                                            {% if(is_granted('ROLE_ENTREPRISE')) %}
+                                                <a href="{{path('accesreferenceservice_index',{'id':entrepriseService.id})}}" class="btn btn-ems" style="width: 110px">Coffres</a>
+                                            {% else %}
+                                                {% if(guichentreprise.droitauto=='oui') %}
+                                                    <a href="{{path('accesreferenceservice_index',{'id':entrepriseService.id})}}" class="btn btn-ems" style="width: 110px">Coffres</a>
+                                                {% else %}
+                                                    <a href="#" class="btn btn-ems" style="border: 1px solid #999999;background-color: #cccccc;color: #666666;width: 110px">Coffres</a>
+                                                {% endif %}
+                                            {% endif %}
+
+
+                                            {% if(is_granted('ROLE_ENTREPRISE')) %}                                     
+                                                <a href="{{path('courrierentreprise_index',{'id':entrepriseService.id})}}" class="btn btn-ems" style="width: 110px">Dépôts</a>
+                                            {% endif %}
+{#                                                <a href="#" class="btn btn-ems r-ems myBtn recherche" style="width: 110px" rel="{{entrepriseService.id}}_{{entrepriseService.service.reference}}">Recherche</a>#}
+                                        </div>
+                                    </td>
+                                   
+                                  
+                                 </tr>
+                                         
+                                     {% endfor %}
+                        
+                        
+                        
+                        
+                                    
+                           </tbody>
+                    </table>
+                                     
+                                     
+                   
+                        
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content" style="max-width: 21.7rem">
+                            
+                        {% if(is_granted('ROLE_ENTREPRISE')) %}
+                            <div id="ModalSouscription" style="display:none">    
+                                <div><span class="close" id="close" style="color: red;font-weight: bold">
+                                  &times;</span>
+                                </div>
+
+                                <div style="text-align: center">
+                                    <h1 class="mt-4">Souscription</h1>
+                                </div>
+                                   <div style="text-align: center">
+                                       <b>Service Dépôt Dans Coffre</b>
+                                       </div>
+
+                                 {{ form_start(form,{'attr' : {'id':'formSoumissionService'}}) }}
+
+                                <div class="form-group">
+                                    <b>Type de document</b>
+                                    <select name="service" id="service" class="form-control">
+                                         <option value="0" selected>Choisir Type Document...</option>
+                                        {% for service in serviceDisponibles %}
+                                            <option value="{{service.id}}">{{service.service}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                            
+                                    <div style="clear:both"></div>
+
+                                <div id="{{ form.stockage.vars.id }}" class="form-group">
+                                      <div style="text-align:left"> <b>Durée Stockage</b></div>
+                                    <ul style="padding:0;margin:0;list-style-type:none;">
+
+                                        {% for stockage in form.stockage.children %}
+                                            <li style="margin-left:2px;float:left;width: 40%">
+                                                <div class="radio">
+                                                    <label class="required">      
+                                                        <input id="{{ stockage.vars.id }}" name="{{ stockage.vars.full_name }}" required="required" value="{{ stockage.vars.value }}" type="radio"  {% if(stockage.vars.value=='3 mois') %} checked {% endif %}/>   
+                                                        {{ stockage.vars.label }}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                    {% do form.stockage.setRendered %}
+                                </div>
+
+
+                                <div style="text-align: center;padding-bottom: 10px">
+                                        <input type="submit" value="Souscrire" class="btn  btn-ems" style="width:100%"/>
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                            
+                        {% endif%}
+                            
+                            
+                            
+                        <div id="ModalRecherche" style="display:none">
+                            <div><span class="close" id="close" style="color: red;font-weight: bold">
+                              &times;</span>
+                            </div>
+                            <div style="text-align: center">
+                                <h1 class="mt-4">Recherche</h1>
+                            </div>
+                            <div style="text-align: center" id="ModalRechercheTitle">    
+                            </div>
+                            <form action="{{path('recherche_depotscoffre')}}" method="post">
+
+                                <div class="form-group">
+                                     <div style="text-align:left" id="rechercheDocLabel"></div>
+                                     <input type="text" value="" class="form-control" name="rechercheDocRef" id="rechercheDocRef" />
+                                </div>
+                                <input type="hidden" value="" class="form-control" name="rechercheDocIdServ" id="rechercheDocIdServ" />
+
+                                <div style="height: 30px">
+                                    <span style="float: right">
+                                        <input type="submit" value="Rechercher" class="btn  btn-ems" />
+                                    </span>
+                                </div>
+
+                            </form>
+                        </div>     
+                        </div>               
+                    </div>
+                   
+            
+                   
+                   
+                        
+                        
+                        
+                        
+                    
+                </div> 
+                
+            </div>
+                
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

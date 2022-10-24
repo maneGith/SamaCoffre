@@ -1,0 +1,39 @@
+# app/config/security.yml
+security:
+    encoders:
+       AppBundle\Entity\User:
+           algorithm: plaintext
+
+    providers:
+        db_provider:
+            entity:
+                class: AppBundle:User
+                property: email
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        
+        main:
+            anonymous:    ~
+            form_login:
+                login_path: login
+                check_path: login
+                default_target_path: /home
+                always_use_default_target_path: true
+
+            logout:
+                path: /logout
+                target: /
+    access_control:
+        - { path: ^/entrepriseservice/entreprise, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/entreprise, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/entrepriseservice, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/user/show, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/user/edit, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/user/password, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/home$, role: IS_AUTHENTICATED_FULLY}
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
